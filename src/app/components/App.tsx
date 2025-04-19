@@ -2,13 +2,19 @@
 
 import { useEffect, useState } from "react";
 import styles from "./App.module.css";
-import { applyRule, canApplyRule1, getAllSpanRules, Rule } from "../util/miu";
+import {
+  applyRule,
+  canApplyRule1,
+  getAllSpanRules,
+  LETTER_I,
+  Rule,
+} from "../util/miu";
 import Action from "./Action";
 import { getKeyIndex } from "../util/keyboard";
 import EndAction from "./EndAction";
 
 export default function App() {
-  const [string, setString] = useState(["I"]);
+  const [string, setString] = useState([LETTER_I]);
 
   const isRule1Applicable = canApplyRule1(string);
   const spanRules = getAllSpanRules(string);
@@ -54,7 +60,7 @@ export default function App() {
             style={{
               width: cellWidth,
               backgroundColor:
-                letter === "I" ? "var(--foreground)" : "var(--background)",
+                letter === LETTER_I ? "var(--foreground)" : "var(--background)",
             }}
           >
             <Action

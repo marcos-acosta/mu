@@ -1,5 +1,5 @@
-const LETTER_I = "I";
-const LETTER_U = "U";
+export const LETTER_I = "I";
+export const LETTER_U = "U";
 
 export interface Rule {
   ruleNumber: number;

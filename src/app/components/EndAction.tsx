@@ -7,17 +7,6 @@ interface EndActionProps {
   applyRuleToString: (rule: Rule) => void;
 }
 
-const getColorFromRuleNumber = (ruleNumber: number) => {
-  switch (ruleNumber) {
-    case 1:
-      return "var(--theme-eggplant)";
-    case 2:
-      return "var(--theme-green)";
-    default:
-      return "black";
-  }
-};
-
 export default function EndAction(props: EndActionProps) {
   const rule1Index = props.rules.findIndex((rule) => rule.ruleNumber === 1);
   const rule1 = rule1Index !== -1 ? props.rules[rule1Index] : null;
