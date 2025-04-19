@@ -1,3 +1,10 @@
+.scrollContainer {
+  width: 100vw;
+  height: 100vh;
+  scroll-snap-type: y mandatory;
+  overflow: scroll;
+}
+
 .pageContainer {
   display: flex;
   flex-direction: column;
@@ -5,6 +12,79 @@
   justify-content: center;
   width: 100vw;
   height: 100vh;
+  scroll-snap-align: start;
+}
+
+.introContainer {
+  width: 100vw;
+  height: 100vh;
+  scroll-snap-align: start;
+  background-color: var(--theme-salmon);
+  color: var(--background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.textContent {
+  text-align: left;
+  width: min(60%, 800px);
+}
+
+.code {
+  font-family: var(--font-geist-mono);
+}
+
+.textBody {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.rulesList {
+  padding-left: 30px;
+}
+
+.rulesList > li {
+  margin-bottom: 10px;
+}
+
+.rulesList > li:last-child {
+  margin-bottom: 0px;
+}
+
+.strong {
+  font-weight: bold;
+  font-style: italic;
+  color: var(--background);
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  width: 90px;
+  display: inline-block;
+  text-align: center;
+  outline: 1px solid var(--background);
+  margin-right: 5px;
+}
+
+.rule1 {
+  background-color: var(--theme-pink);
+}
+
+.rule2 {
+  background-color: var(--theme-blue);
+}
+
+.rule3 {
+  background-color: var(--theme-green);
+}
+
+.rule4 {
+  background-color: var(--theme-salmon);
 }
 
 .lettersContainer {
@@ -18,16 +98,16 @@
 }
 
 .letter {
-  border-top: 1px solid #777777;
-  border-bottom: 1px solid #777777;
-  border-right: 1px solid #777777;
+  border-top: 1px solid var(--theme-gray);
+  border-bottom: 1px solid var(--theme-gray);
+  border-right: 1px solid var(--theme-gray);
   display: inline-block;
   aspect-ratio: 1 / 1;
   position: relative;
 }
 
 .letter:first-child {
-  border-left: 1px solid #777777;
+  border-left: 1px solid var(--theme-gray);
 }
 
 .underlineContainer {

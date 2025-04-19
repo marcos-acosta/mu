@@ -1,10 +1,11 @@
 :root {
   --background: #ffffff;
-  --foreground: #202020;
-  --theme-pink: #adbca5;
-  --theme-blue: #e09891;
-  --theme-eggplant: #171717;
-  --theme-green: #171717;
+  --foreground: #292929;
+  --theme-green: #adbca5;
+  --theme-salmon: #e09891;
+  --theme-gray: #777777;
+  --theme-pink: #cb769e;
+  --theme-blue: #6290c3;
 }
 
 @media (prefers-color-scheme: dark) {

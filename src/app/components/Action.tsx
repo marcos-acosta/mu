@@ -20,9 +20,9 @@ const getWidthFromRuleNumber = (ruleNumber: number) => {
 const getColorFromRuleNumber = (ruleNumber: number) => {
   switch (ruleNumber) {
     case 3:
-      return "var(--theme-pink)";
+      return "var(--theme-green)";
     case 4:
-      return "var(--theme-blue)";
+      return "var(--theme-salmon)";
     default:
       return "black";
   }

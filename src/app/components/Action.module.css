@@ -101,11 +101,11 @@
   /* This is hacky */
   height: calc((100% / 10) + (12px - 6px) + 35px);
   width: 2px;
-  background-color: #cb769e;
+  background-color: var(--theme-pink);
 }
 
 .rule1Indicator {
-  background-color: #cb769e;
+  background-color: var(--theme-pink);
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -119,7 +119,7 @@
 }
 
 .rule2Indicator {
-  background-color: #6290c3;
+  background-color: var(--theme-blue);
   cursor: pointer;
   display: flex;
   flex-direction: column;
