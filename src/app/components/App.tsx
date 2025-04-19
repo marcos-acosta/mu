@@ -14,10 +14,10 @@ export default function App() {
   const spanRules = getAllSpanRules(string);
   const allRules = [
     { ruleNumber: 2, startIndexInclusive: string.length, row: 0 },
+    ...spanRules,
     isRule1Applicable
       ? { ruleNumber: 1, startIndexInclusive: string.length, row: 0 }
       : undefined,
-    ...spanRules,
   ].filter(Boolean) as Rule[];
 
   const cellWidth = `min(calc(100% / ${string.length}), 5%)`;

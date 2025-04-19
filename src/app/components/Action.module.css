@@ -80,7 +80,13 @@
 .rule1AbsoluteContainer {
   position: absolute;
   top: 0;
-  right: -6px;
+  right: -8px;
+  height: 100%;
+}
+
+.rule2AbsoluteContainer {
+  position: absolute;
+  top: 0;
   height: 100%;
 }
 
@@ -101,6 +107,20 @@
 
 .rule1Indicator {
   background-color: #cb769e;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 80px;
+  width: 40px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.rule2Indicator {
+  background-color: #6290c3;
   cursor: pointer;
   display: flex;
   flex-direction: column;

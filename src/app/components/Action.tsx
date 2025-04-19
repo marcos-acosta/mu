@@ -86,7 +86,7 @@ export default function Action(props: ActionProps) {
                       fillRule="evenodd"
                       clipRule="evenodd"
                       stroke="currentColor"
-                      strokeWidth="1"
+                      strokeWidth="0.25"
                     ></path>
                   ) : (
                     <rect width="15" height="15" fill="var(--background)" />
