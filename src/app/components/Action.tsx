@@ -56,7 +56,10 @@ export default function Action(props: ActionProps) {
           bottom: getBottomFromRowNumber(rule.row),
         }}
       >
-        <div className={styles.relativeContainer}>
+        <div
+          className={styles.relativeContainer}
+          style={{ zIndex: props.rules.length - ruleIndex }}
+        >
           <div className={styles.connectorAndIndicator}>
             <div
               className={styles.actionConnector}
