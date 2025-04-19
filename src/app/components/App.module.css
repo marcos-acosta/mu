@@ -2,18 +2,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100vw;
   height: 100vh;
-  padding-top: 20vh;
 }
 
 .lettersContainer {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   font-family: var(--font-geist-mono);
   width: 90%;
+  height: 400px;
 }
 
 .letter {
