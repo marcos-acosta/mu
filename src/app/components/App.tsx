@@ -149,11 +149,13 @@ export default function App() {
             <p>
               Once you scroll down, you can click on each rule &#x28;or use the
               indicated keyboard shortcuts&#x29; to begin manipulating the
-              chain. To go back one step, press{" "}
-              <span className={styles.code}>Backspace</span>. To start over,
-              press <span className={styles.code}>Space</span>.
+              chain. To go back one step, hit{" "}
+              <span className={styles.code}>Delete</span>. To start over, hit{" "}
+              <span className={styles.code}>Space</span>. When you&apos;ve
+              solved the puzzle &#x28;or given up&#x29;, scroll down again to
+              read the conclusion.
             </p>
-            <p>Good luck!</p>
+            <p>Have fun!</p>
           </div>
         </div>
       </div>
