@@ -7,16 +7,18 @@ export interface Rule {
   row: number;
 }
 
+export type TheoremString = string[];
+
 export interface NewStateWithIntermediateStates {
-  newState: string[];
-  intermediateStates: string[][];
+  newState: TheoremString;
+  intermediateStates: TheoremString[];
 }
 
-export const canApplyRule1 = (string: string[]): boolean => {
+export const canApplyRule1 = (string: TheoremString): boolean => {
   return string[string.length - 1] === LETTER_I;
 };
 
-export const getIndicesForRule3 = (string: string[]): Rule[] => {
+export const getIndicesForRule3 = (string: TheoremString): Rule[] => {
   let indices = [] as Rule[];
   for (let i = 0; i < string.length - 2; i++) {
     if (
@@ -34,7 +36,7 @@ export const getIndicesForRule3 = (string: string[]): Rule[] => {
   return indices;
 };
 
-export const getIndicesForRule4 = (string: string[]): Rule[] => {
+export const getIndicesForRule4 = (string: TheoremString): Rule[] => {
   let indices = [] as Rule[];
   for (let i = 0; i < string.length - 1; i++) {
     if (string[i] === LETTER_U && string[i + 1] === LETTER_U) {
@@ -58,7 +60,7 @@ export const adjustRows = (rules: Rule[]): Rule[] => {
   return newRules;
 };
 
-export const getAllSpanRules = (string: string[]): Rule[] => {
+export const getAllSpanRules = (string: TheoremString): Rule[] => {
   const rule3Indices = getIndicesForRule3(string);
   const rule4Indices = getIndicesForRule4(string);
   const spanRules = [...rule3Indices, ...rule4Indices].toSorted(
@@ -68,14 +70,14 @@ export const getAllSpanRules = (string: string[]): Rule[] => {
 };
 
 export const applyRule1 = (
-  string: string[]
+  string: TheoremString
 ): NewStateWithIntermediateStates => ({
   newState: [...string, LETTER_U],
   intermediateStates: [],
 });
 
 export const applyRule2 = (
-  string: string[]
+  string: TheoremString
 ): NewStateWithIntermediateStates => ({
   newState: [...string, ...string],
   intermediateStates: [...Array(string.length).keys()].map((i) => [
@@ -85,7 +87,7 @@ export const applyRule2 = (
 });
 
 export const applyRule3 = (
-  string: string[],
+  string: TheoremString,
   startIndex: number
 ): NewStateWithIntermediateStates => ({
   newState: [
@@ -100,7 +102,7 @@ export const applyRule3 = (
 });
 
 export const applyRule4 = (
-  string: string[],
+  string: TheoremString,
   startIndex: number
 ): NewStateWithIntermediateStates => ({
   newState: [...string.slice(0, startIndex), ...string.slice(startIndex + 2)],
@@ -110,7 +112,7 @@ export const applyRule4 = (
 });
 
 export const applyRule = (
-  string: string[],
+  string: TheoremString,
   rule: Rule
 ): NewStateWithIntermediateStates => {
   switch (rule.ruleNumber) {

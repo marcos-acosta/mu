@@ -9,6 +9,7 @@ import {
   LETTER_I,
   NewStateWithIntermediateStates,
   Rule,
+  TheoremString,
 } from "../util/miu";
 import Action from "./Action";
 import { getKeyIndex } from "../util/keyboard";
@@ -16,6 +17,7 @@ import EndAction from "./EndAction";
 
 export default function App() {
   const [string, setString] = useState([LETTER_I]);
+  const [history, setHistory] = useState<TheoremString[]>([]);
   const [showActions, setShowActions] = useState(true);
 
   const isRule1Applicable = canApplyRule1(string);
@@ -38,7 +40,7 @@ export default function App() {
 
   const animateStateTransition = (
     newStateWithTransition: NewStateWithIntermediateStates,
-    speedMillis: number = 50
+    speedMillis?: number
   ) => {
     const allStates = [
       ...newStateWithTransition.intermediateStates,
@@ -47,9 +49,11 @@ export default function App() {
     const firstState = allStates[0];
     const restOfStates = allStates.slice(1);
     setString(firstState);
+    setHistory((prevHistory) => [...prevHistory, string]);
     if (restOfStates.length === 0) {
       return;
     }
+    const millis = speedMillis || Math.max(50, 100 / restOfStates.length);
     setShowActions(false);
     allStates.forEach((state, index) => {
       setTimeout(() => {
@@ -57,7 +61,7 @@ export default function App() {
         if (index === allStates.length - 1) {
           setShowActions(true);
         }
-      }, index * speedMillis);
+      }, index * millis);
     });
   };
 
@@ -67,13 +71,17 @@ export default function App() {
   };
 
   const handleKeyPress = (event: KeyboardEvent) => {
-    if (!showActions) {
+    if (!showActions || event.ctrlKey || event.metaKey) {
       return;
     }
     const key = event.key;
     if (key === " ") {
       event.preventDefault();
       setString([LETTER_I]);
+    } else if (key === "Backspace") {
+      event.preventDefault();
+      setString(history[history.length - 1] || [LETTER_I]);
+      setHistory(history.slice(0, -1));
     } else {
       const index = getKeyIndex(key);
       if (index !== null && index < allRules.length) {
@@ -84,8 +92,8 @@ export default function App() {
   };
 
   useEffect(() => {
-    addEventListener("keypress", handleKeyPress);
-    return () => removeEventListener("keypress", handleKeyPress);
+    addEventListener("keydown", handleKeyPress);
+    return () => removeEventListener("keydown", handleKeyPress);
   }, [allRules, string, showActions]);
 
   return (
