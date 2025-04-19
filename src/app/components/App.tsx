@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./App.module.css";
 import { applyRule, canApplyRule1, getAllSpanRules, Rule } from "../util/miu";
 import Action from "./Action";
@@ -8,7 +8,7 @@ import { getKeyIndex } from "../util/keyboard";
 import EndAction from "./EndAction";
 
 export default function App() {
-  const [string, setString] = useState(["M", "I"]);
+  const [string, setString] = useState(["I"]);
 
   const isRule1Applicable = canApplyRule1(string);
   const spanRules = getAllSpanRules(string);
@@ -21,7 +21,6 @@ export default function App() {
   ].filter(Boolean) as Rule[];
 
   const cellWidth = `min(calc(100% / ${string.length}), 5%)`;
-  const fontSize = `min(calc(90vw / ${string.length}), 7vw)`;
 
   const handleKeyPress = (event: KeyboardEvent) => {
     const key = event.key.toLowerCase();
@@ -46,10 +45,10 @@ export default function App() {
             className={styles.letter}
             style={{
               width: cellWidth,
-              fontSize: fontSize,
+              backgroundColor:
+                letter === "I" ? "var(--foreground)" : "var(--background)",
             }}
           >
-            {letter}
             <Action rules={allRules} index={index} />
             {index === string.length - 1 && <EndAction rules={allRules} />}
           </div>

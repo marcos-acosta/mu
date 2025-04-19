@@ -65,9 +65,8 @@ export const getAllSpanRules = (string: string[]): Rule[] => {
 export const applyRule1 = (string: string[]): string[] => [...string, LETTER_U];
 
 export const applyRule2 = (string: string[]): string[] => [
-  string[0],
-  ...string.slice(1),
-  ...string.slice(1),
+  ...string,
+  ...string,
 ];
 
 export const applyRule3 = (string: string[], startIndex: number) => [

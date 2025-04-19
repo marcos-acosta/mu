@@ -17,11 +17,16 @@
 }
 
 .letter {
-  border: 1px solid rgb(229, 229, 229);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-top: 1px solid #777777;
+  border-bottom: 1px solid #777777;
+  border-right: 1px solid #777777;
+  display: inline-block;
+  aspect-ratio: 1 / 1;
   position: relative;
+}
+
+.letter:first-child {
+  border-left: 1px solid #777777;
 }
 
 .underlineContainer {

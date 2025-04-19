@@ -1,12 +1,8 @@
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-  /* --theme-pink: #d4afb9;
-  --theme-blue: #9cadce;
-  --theme-eggplant: #5e4b56;
-  --theme-green: #86ba90; */
-  --theme-pink: #171717;
-  --theme-blue: #171717;
+  --foreground: #202020;
+  --theme-pink: #adbca5;
+  --theme-blue: #e09891;
   --theme-eggplant: #171717;
   --theme-green: #171717;
 }
