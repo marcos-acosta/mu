@@ -37,7 +37,8 @@ export default function App() {
   const cellWidth = `min(calc(100% / ${string.length}), 5%)`;
 
   const animateStateTransition = (
-    newStateWithTransition: NewStateWithIntermediateStates
+    newStateWithTransition: NewStateWithIntermediateStates,
+    speedMillis: number = 50
   ) => {
     const allStates = [
       ...newStateWithTransition.intermediateStates,
@@ -56,7 +57,7 @@ export default function App() {
         if (index === allStates.length - 1) {
           setShowActions(true);
         }
-      }, index * 50);
+      }, index * speedMillis);
     });
   };
 
@@ -70,10 +71,15 @@ export default function App() {
       return;
     }
     const key = event.key;
-    const index = getKeyIndex(key);
-    if (index !== null && index < allRules.length) {
-      const rule = allRules[index];
-      applyRuleToString(rule);
+    if (key === " ") {
+      event.preventDefault();
+      setString([LETTER_I]);
+    } else {
+      const index = getKeyIndex(key);
+      if (index !== null && index < allRules.length) {
+        const rule = allRules[index];
+        applyRuleToString(rule);
+      }
     }
   };
 
