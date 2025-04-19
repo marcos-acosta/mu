@@ -24,29 +24,28 @@ export default function EndAction(props: EndActionProps) {
   const rule2 = rule2Index !== -1 ? props.rules[rule2Index] : null;
 
   return (
-    <div className={styles.stackedContainer}>
-      {rule2 && (
-        <div
-          className={styles.endRule}
-          style={{ backgroundColor: getColorFromRuleNumber(2) }}
-        >
-          <div className={styles.ruleNumber}>II</div>
-          <div className={styles.keyboardHint}>
-            {getIthShortcut(rule2Index)}
+    rule1 && (
+      <div className={styles.rule1AbsoluteContainer}>
+        <div className={styles.relativeStackedContainer}>
+          <div className={styles.rule1Connector}></div>
+          <div className={styles.rule1Indicator}>
+            <div className={styles.ruleNumber}>
+              <svg
+                width="90%"
+                height="90%"
+                viewBox="0 0 15 15"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect width="15" height="15" fill="var(--background)" />
+              </svg>
+            </div>
+            <div className={styles.keyboardHint}>
+              {getIthShortcut(rule1Index)}
+            </div>
           </div>
         </div>
-      )}
-      {rule1 && (
-        <div
-          className={styles.endRule}
-          style={{ backgroundColor: getColorFromRuleNumber(1) }}
-        >
-          <div className={styles.ruleNumber}>I</div>
-          <div className={styles.keyboardHint}>
-            {getIthShortcut(rule1Index)}
-          </div>
-        </div>
-      )}
-    </div>
+      </div>
+    )
   );
 }

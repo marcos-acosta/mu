@@ -76,3 +76,39 @@
   justify-content: right;
   gap: 10px;
 }
+
+.rule1AbsoluteContainer {
+  position: absolute;
+  top: 0;
+  right: -6px;
+  height: 100%;
+}
+
+.relativeStackedContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  height: calc(100% * 5);
+}
+
+.rule1Connector {
+  height: calc((100% / 5) + (12px - 6px) + 35px);
+  width: 2px;
+  background-color: #cb769e;
+  cursor: pointer;
+}
+
+.rule1Indicator {
+  background-color: #cb769e;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 80px;
+  width: 40px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
