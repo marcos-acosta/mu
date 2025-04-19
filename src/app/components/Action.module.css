@@ -32,6 +32,7 @@
   justify-content: center;
   gap: 8px;
   height: 80px;
+  width: 40px;
   padding-left: 8px;
   padding-right: 8px;
 }
@@ -53,4 +54,25 @@
   border: 1px solid white;
   padding-left: 4px;
   padding-right: 4px;
+}
+
+.stackedContainer {
+  position: absolute;
+  top: -105px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.endRule {
+  font-size: 1rem;
+  padding: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: right;
+  gap: 10px;
 }

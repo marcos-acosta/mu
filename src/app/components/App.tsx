@@ -5,36 +5,18 @@ import styles from "./App.module.css";
 import { applyRule, canApplyRule1, getAllSpanRules, Rule } from "../util/miu";
 import Action from "./Action";
 import { getKeyIndex } from "../util/keyboard";
+import EndAction from "./EndAction";
 
 export default function App() {
-  const [string, setString] = useState([
-    "M",
-    "I",
-    "U",
-    "I",
-    "U",
-    "I",
-    "I",
-    "I",
-    "I",
-    "I",
-    "I",
-    "U",
-    "I",
-    "I",
-    "U",
-    "U",
-    "I",
-    "I",
-  ]);
+  const [string, setString] = useState(["M", "I"]);
 
   const isRule1Applicable = canApplyRule1(string);
   const spanRules = getAllSpanRules(string);
   const allRules = [
+    { ruleNumber: 2, startIndexInclusive: string.length, row: 0 },
     isRule1Applicable
       ? { ruleNumber: 1, startIndexInclusive: string.length, row: 0 }
       : undefined,
-    { ruleNumber: 2, startIndexInclusive: string.length, row: 0 },
     ...spanRules,
   ].filter(Boolean) as Rule[];
 
@@ -69,6 +51,7 @@ export default function App() {
           >
             {letter}
             <Action rules={allRules} index={index} />
+            {index === string.length - 1 && <EndAction rules={allRules} />}
           </div>
         ))}
       </div>
