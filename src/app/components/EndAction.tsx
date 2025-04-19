@@ -4,6 +4,7 @@ import styles from "./Action.module.css";
 
 interface EndActionProps {
   rules: Rule[];
+  applyRuleToString: (rule: Rule) => void;
 }
 
 const getColorFromRuleNumber = (ruleNumber: number) => {
@@ -29,7 +30,10 @@ export default function EndAction(props: EndActionProps) {
         <div className={styles.rule1AbsoluteContainer}>
           <div className={styles.relativeStackedContainer}>
             <div className={styles.rule1Connector}></div>
-            <div className={styles.rule1Indicator}>
+            <div
+              className={styles.rule1Indicator}
+              onClick={() => props.applyRuleToString(rule1)}
+            >
               <div className={styles.ruleNumber}>
                 <svg
                   width="90%"
@@ -53,7 +57,10 @@ export default function EndAction(props: EndActionProps) {
           className={styles.rule2AbsoluteContainer}
           style={{ left: rule1 ? "calc(100% + 13px)" : "calc(100% + 6px)" }}
         >
-          <div className={styles.rule2Indicator}>
+          <div
+            className={styles.rule2Indicator}
+            onClick={() => props.applyRuleToString(rule2)}
+          >
             <div className={styles.ruleNumber}>
               <svg
                 width="90%"

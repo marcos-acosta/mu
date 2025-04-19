@@ -37,6 +37,7 @@ const getBottomFromRowNumber = (rowNumber: number) =>
 interface ActionProps {
   rules: Rule[];
   index: number;
+  applyRuleToString: (rule: Rule) => void;
 }
 
 export default function Action(props: ActionProps) {
@@ -73,6 +74,7 @@ export default function Action(props: ActionProps) {
               style={{
                 backgroundColor: getColorFromRuleNumber(rule.ruleNumber),
               }}
+              onClick={() => props.applyRuleToString(rule)}
             >
               <div className={styles.ruleNumber}>
                 <svg

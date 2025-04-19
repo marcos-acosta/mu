@@ -3,7 +3,6 @@
   left: 0;
   height: 6px;
   display: inline-block;
-  cursor: pointer;
 }
 
 .relativeContainer {
@@ -20,7 +19,6 @@
   position: relative;
   width: 2px;
   display: inline-block;
-  cursor: pointer;
 }
 
 .actionIndicator {
@@ -95,14 +93,15 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  height: calc(100% * 5);
+  /* This is hacky */
+  height: calc(100% * 10);
 }
 
 .rule1Connector {
-  height: calc((100% / 5) + (12px - 6px) + 35px);
+  /* This is hacky */
+  height: calc((100% / 10) + (12px - 6px) + 35px);
   width: 2px;
   background-color: #cb769e;
-  cursor: pointer;
 }
 
 .rule1Indicator {
