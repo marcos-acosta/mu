@@ -7,6 +7,11 @@ export interface Rule {
   row: number;
 }
 
+export interface NewStateWithIntermediateStates {
+  newState: string[];
+  intermediateStates: string[][];
+}
+
 export const canApplyRule1 = (string: string[]): boolean => {
   return string[string.length - 1] === LETTER_I;
 };
@@ -62,25 +67,52 @@ export const getAllSpanRules = (string: string[]): Rule[] => {
   return adjustRows(spanRules);
 };
 
-export const applyRule1 = (string: string[]): string[] => [...string, LETTER_U];
+export const applyRule1 = (
+  string: string[]
+): NewStateWithIntermediateStates => ({
+  newState: [...string, LETTER_U],
+  intermediateStates: [],
+});
 
-export const applyRule2 = (string: string[]): string[] => [
-  ...string,
-  ...string,
-];
+export const applyRule2 = (
+  string: string[]
+): NewStateWithIntermediateStates => ({
+  newState: [...string, ...string],
+  intermediateStates: [...Array(string.length).keys()].map((i) => [
+    ...string,
+    ...string.slice(0, i),
+  ]),
+});
 
-export const applyRule3 = (string: string[], startIndex: number) => [
-  ...string.slice(0, startIndex),
-  LETTER_U,
-  ...string.slice(startIndex + 3),
-];
+export const applyRule3 = (
+  string: string[],
+  startIndex: number
+): NewStateWithIntermediateStates => ({
+  newState: [
+    ...string.slice(0, startIndex),
+    LETTER_U,
+    ...string.slice(startIndex + 3),
+  ],
+  intermediateStates: [...Array(3).keys()].map((i) => [
+    ...string.slice(0, startIndex),
+    ...string.slice(startIndex + i + 1),
+  ]),
+});
 
-export const applyRule4 = (string: string[], startIndex: number) => [
-  ...string.slice(0, startIndex),
-  ...string.slice(startIndex + 2),
-];
+export const applyRule4 = (
+  string: string[],
+  startIndex: number
+): NewStateWithIntermediateStates => ({
+  newState: [...string.slice(0, startIndex), ...string.slice(startIndex + 2)],
+  intermediateStates: [
+    [...string.slice(0, startIndex), ...string.slice(startIndex + 1)],
+  ],
+});
 
-export const applyRule = (string: string[], rule: Rule): string[] => {
+export const applyRule = (
+  string: string[],
+  rule: Rule
+): NewStateWithIntermediateStates => {
   switch (rule.ruleNumber) {
     case 1:
       return applyRule1(string);
@@ -91,6 +123,9 @@ export const applyRule = (string: string[], rule: Rule): string[] => {
     case 4:
       return applyRule4(string, rule.startIndexInclusive);
     default:
-      return string;
+      return {
+        newState: string,
+        intermediateStates: [],
+      };
   }
 };

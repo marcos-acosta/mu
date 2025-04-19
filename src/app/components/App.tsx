@@ -7,6 +7,7 @@ import {
   canApplyRule1,
   getAllSpanRules,
   LETTER_I,
+  NewStateWithIntermediateStates,
   Rule,
 } from "../util/miu";
 import Action from "./Action";
@@ -15,6 +16,7 @@ import EndAction from "./EndAction";
 
 export default function App() {
   const [string, setString] = useState([LETTER_I]);
+  const [showActions, setShowActions] = useState(true);
 
   const isRule1Applicable = canApplyRule1(string);
   const spanRules = getAllSpanRules(string);
@@ -34,9 +36,39 @@ export default function App() {
 
   const cellWidth = `min(calc(100% / ${string.length}), 5%)`;
 
-  const applyRuleToString = (rule: Rule) => setString(applyRule(string, rule));
+  const animateStateTransition = (
+    newStateWithTransition: NewStateWithIntermediateStates
+  ) => {
+    const allStates = [
+      ...newStateWithTransition.intermediateStates,
+      newStateWithTransition.newState,
+    ];
+    const firstState = allStates[0];
+    const restOfStates = allStates.slice(1);
+    setString(firstState);
+    if (restOfStates.length === 0) {
+      return;
+    }
+    setShowActions(false);
+    allStates.forEach((state, index) => {
+      setTimeout(() => {
+        setString(state);
+        if (index === allStates.length - 1) {
+          setShowActions(true);
+        }
+      }, index * 50);
+    });
+  };
+
+  const applyRuleToString = (rule: Rule) => {
+    const newStateWithTransition = applyRule(string, rule);
+    animateStateTransition(newStateWithTransition);
+  };
 
   const handleKeyPress = (event: KeyboardEvent) => {
+    if (!showActions) {
+      return;
+    }
     const key = event.key;
     const index = getKeyIndex(key);
     if (index !== null && index < allRules.length) {
@@ -48,7 +80,7 @@ export default function App() {
   useEffect(() => {
     addEventListener("keypress", handleKeyPress);
     return () => removeEventListener("keypress", handleKeyPress);
-  }, [allRules, string]);
+  }, [allRules, string, showActions]);
 
   return (
     <div className={styles.pageContainer}>
@@ -63,16 +95,20 @@ export default function App() {
                 letter === LETTER_I ? "var(--foreground)" : "var(--background)",
             }}
           >
-            <Action
-              rules={allRules}
-              index={index}
-              applyRuleToString={applyRuleToString}
-            />
-            {index === string.length - 1 && (
-              <EndAction
-                rules={allRules}
-                applyRuleToString={applyRuleToString}
-              />
+            {showActions && (
+              <>
+                <Action
+                  rules={allRules}
+                  index={index}
+                  applyRuleToString={applyRuleToString}
+                />
+                {index === string.length - 1 && (
+                  <EndAction
+                    rules={allRules}
+                    applyRuleToString={applyRuleToString}
+                  />
+                )}
+              </>
             )}
           </div>
         ))}
