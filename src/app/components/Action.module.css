@@ -25,16 +25,15 @@
 
 .actionIndicator {
   position: relative;
-  width: 5vw;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  border-radius: 5px;
-  border-top-left-radius: 0;
   height: 80px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 .ruleNumber {

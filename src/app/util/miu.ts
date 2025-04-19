@@ -4,7 +4,6 @@ const LETTER_U = "U";
 export interface Rule {
   ruleNumber: number;
   startIndexInclusive: number;
-  endIndexExclusive: number;
   row: number;
 }
 
@@ -23,7 +22,6 @@ export const getIndicesForRule3 = (string: string[]): Rule[] => {
       indices.push({
         ruleNumber: 3,
         startIndexInclusive: i,
-        endIndexExclusive: i + 3,
         row: 0,
       });
     }
@@ -38,7 +36,6 @@ export const getIndicesForRule4 = (string: string[]): Rule[] => {
       indices.push({
         ruleNumber: 4,
         startIndexInclusive: i,
-        endIndexExclusive: i + 2,
         row: 0,
       });
     }
@@ -63,4 +60,38 @@ export const getAllSpanRules = (string: string[]): Rule[] => {
     (a, b) => a.startIndexInclusive - b.startIndexInclusive
   );
   return adjustRows(spanRules);
+};
+
+export const applyRule1 = (string: string[]): string[] => [...string, LETTER_U];
+
+export const applyRule2 = (string: string[]): string[] => [
+  string[0],
+  ...string.slice(1),
+  ...string.slice(1),
+];
+
+export const applyRule3 = (string: string[], startIndex: number) => [
+  ...string.slice(0, startIndex),
+  LETTER_U,
+  ...string.slice(startIndex + 3),
+];
+
+export const applyRule4 = (string: string[], startIndex: number) => [
+  ...string.slice(0, startIndex),
+  ...string.slice(startIndex + 2),
+];
+
+export const applyRule = (string: string[], rule: Rule): string[] => {
+  switch (rule.ruleNumber) {
+    case 1:
+      return applyRule1(string);
+    case 2:
+      return applyRule2(string);
+    case 3:
+      return applyRule3(string, rule.startIndexInclusive);
+    case 4:
+      return applyRule4(string, rule.startIndexInclusive);
+    default:
+      return string;
+  }
 };
