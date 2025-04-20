@@ -78,6 +78,7 @@ export default function App() {
     if (key === " ") {
       event.preventDefault();
       setString([LETTER_I]);
+      setHistory([]);
     } else if (key === "Backspace") {
       event.preventDefault();
       setString(history[history.length - 1] || [LETTER_I]);
@@ -190,6 +191,70 @@ export default function App() {
               )}
             </div>
           ))}
+        </div>
+      </div>
+      <div className={styles.solutionContainer}>
+        <div className={styles.textContent}>
+          <h1>The solution</h1>
+          <div className={styles.textBody}>
+            <p>
+              As you may have began to suspect, it is <em>impossible</em> to
+              produce □. But <em>why</em>? To answer that question, we need to
+              reason about the rules of the puzzle themselves.
+            </p>
+            <p>
+              Let&apos;s see if we can find some property that <em>all</em>{" "}
+              chains must share. Consider the <em>number</em> of ■ in the chain.
+              Let&apos;s call this the ■-count. Which rules <em>change</em> a
+              chain&apos;s ■-count? If you take a look, you&apos;ll notice that
+              only <b>Rule II</b> and <b>Rule III</b> do. Specifically,{" "}
+              <b>Rule II</b> doubles the ■-count, while <b>Rule III</b> reduces
+              it by three.
+            </p>
+            <p>
+              Here is the key insight: Note that if a ■-count isn&apos;t
+              divisible by 3, then doubling it won&apos;t result in a ■-count
+              that&apos;s divisible by 3 &#x28;if that&apos;s not clear,
+              consider prime factors&#x29;. Also, decreasing the ■-count by 3
+              won&apos;t make it divisible by 3 unless it was already divisible
+              by 3 in the first place. So, since we start with a ■-count of 1,
+              which isn&apos;t divisible by 3, then there is <em>no</em>{" "}
+              combination of rules that would result in a ■-count that is
+              divisible by 3.
+            </p>
+            <p>
+              And there&apos;s our answer! Since our goal of □ has a ■-count of
+              0, which <em>is</em> divisible by 3, it cannot be produced by any
+              combination of rules.
+            </p>
+            <p>
+              This puzzle illustrates a powerful fact: that some low-level
+              phenomena can <em>only</em> be explained at a high level. In this
+              puzzle, the lowest level would be mindlessly manipulating chains,
+              waiting to see whether □ appears or not. While that low level is
+              powerful enough to illustrate e.g. why □■ <em>is</em> producable,
+              it is <em>not</em> powerful enough to explain why □ is{" "}
+              <em>not</em>. For that, we needed to step "outside" that system to
+              a more powerful one of mathematics and logic, reasoning{" "}
+              <em>about</em> the lower-level rules.
+            </p>
+            <p>
+              Are there phenomena that can&apos;t be explained by the system of
+              mathematics and logic? Insights that require an even higher-level
+              system? Now there&apos;s some food for thought...
+            </p>
+            <p className={styles.byline}>
+              This web page was created by{" "}
+              <a
+                href="https://marcos.ac"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Marcos Acosta
+              </a>
+              .
+            </p>
+          </div>
         </div>
       </div>
     </div>
