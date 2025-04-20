@@ -105,9 +105,17 @@ export default function App() {
           <div className={styles.textBody}>
             <p>
               A few months ago, I &#x28;finally&#x29; finished Douglas
-              Hofstadter&apos;s legendary book, <em>Gödel, Escher, Bach</em>. In
-              one of the early chapters, Hofstadter introduces a deceptively
-              simple puzzle called the <span className={styles.code}>MU</span>
+              Hofstadter&apos;s legendary book,{" "}
+              <a
+                href="https://en.wikipedia.org/wiki/G%C3%B6del,_Escher,_Bach"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <em>Gödel, Escher, Bach</em>
+              </a>
+              . In one of the early chapters, Hofstadter introduces a
+              deceptively simple puzzle called the{" "}
+              <span className={styles.code}>MU</span>
               &ndash;puzzle. The original puzzle uses the letters{" "}
               <span className={styles.code}>M</span>,{" "}
               <span className={styles.code}>U</span>, and{" "}
@@ -148,11 +156,11 @@ export default function App() {
               </li>
             </ul>
             <p>
-              Once you scroll down, you can click on each rule &#x28;or use the
-              indicated keyboard shortcuts&#x29; to begin manipulating the
-              chain. To go back one step, hit{" "}
+              When you scroll down, you&apos;ll be able to click on available
+              rules &#x28;or use the indicated keyboard shortcuts&#x29; to begin
+              manipulating the chain. To go back one step, hit{" "}
               <span className={styles.code}>Delete</span>. To start over, hit{" "}
-              <span className={styles.code}>Space</span>. When you&apos;ve
+              <span className={styles.code}>Space</span>. Once you&apos;ve
               solved the puzzle &#x28;or given up&#x29;, scroll down again to
               read the conclusion.
             </p>
@@ -198,7 +206,7 @@ export default function App() {
           <h1>The solution</h1>
           <div className={styles.textBody}>
             <p>
-              As you may have began to suspect, it is <em>impossible</em> to
+              As you may have begun to suspect, it is <em>impossible</em> to
               produce □. But <em>why</em>? To answer that question, we need to
               reason about the rules of the puzzle themselves.
             </p>
@@ -208,8 +216,8 @@ export default function App() {
               Let&apos;s call this the ■-count. Which rules <em>change</em> a
               chain&apos;s ■-count? If you take a look, you&apos;ll notice that
               only <b>Rule II</b> and <b>Rule III</b> do. Specifically,{" "}
-              <b>Rule II</b> doubles the ■-count, while <b>Rule III</b> reduces
-              it by three.
+              <b>Rule II</b> doubles the ■-count, while <b>Rule III</b>{" "}
+              decreases it by three.
             </p>
             <p>
               Here is the key insight: Note that if a ■-count isn&apos;t
@@ -230,18 +238,19 @@ export default function App() {
             <p>
               This puzzle illustrates a powerful fact: that some low-level
               phenomena can <em>only</em> be explained at a high level. In this
-              puzzle, the lowest level would be mindlessly manipulating chains,
-              waiting to see whether □ appears or not. While that low level is
-              powerful enough to illustrate e.g. why □■ <em>is</em> producable,
-              it is <em>not</em> powerful enough to explain why □ is{" "}
-              <em>not</em>. For that, we needed to step "outside" that system to
-              a more powerful one of mathematics and logic, reasoning{" "}
-              <em>about</em> the lower-level rules.
+              puzzle, the lowest level would be mechanically manipulating the
+              chain, trying every combination, waiting to see whether □ appears
+              or not. While that low level is powerful enough to illustrate e.g.
+              why □■ <em>is</em> producable, it is <em>not</em> powerful enough
+              to explain why □ is <em>not</em>. For that, we needed to step
+              "outside" that system to a more powerful one of mathematics and
+              logic.
             </p>
             <p>
-              Are there phenomena that can&apos;t be explained by the system of
-              mathematics and logic? Insights that require an even higher-level
-              system? Now there&apos;s some food for thought...
+              Are there phenomena that can&apos;t be explained within the system
+              of mathematics and logic? Insights that are only accessible in an
+              even higher-level system? Now there&apos;s some food for
+              thought...
             </p>
             <p className={styles.byline}>
               This web page was created by{" "}
