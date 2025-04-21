@@ -31,7 +31,14 @@ export default function EndAction(props: EndActionProps) {
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <rect width="15" height="15" fill="var(--background)" />
+                  <rect
+                    x="1"
+                    y="1"
+                    width="13"
+                    height="13"
+                    stroke="var(--background)"
+                    strokeWidth="2"
+                  />
                 </svg>
               </div>
               <div className={styles.keyboardHint}>

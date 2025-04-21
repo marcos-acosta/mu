@@ -99,7 +99,7 @@ export default function App() {
 
   return (
     <div className={styles.scrollContainer}>
-      <div className={styles.introContainer}>
+      <div className={`${styles.introContainer} ${styles.textPageContainer}`}>
         <div className={styles.textContent}>
           <h1>Can you turn ■ into □?</h1>
           <div className={styles.textBody}>
@@ -157,8 +157,8 @@ export default function App() {
             </ul>
             <p>
               When you scroll down, you&apos;ll be able to click on available
-              rules &#x28;or use the indicated keyboard shortcuts&#x29; to begin
-              manipulating the chain. To go back one step, hit{" "}
+              rules &#x28;or use the indicated keyboard shortcuts&#x29; to
+              manipulate the chain. To go back one step, hit{" "}
               <span className={styles.code}>Delete</span>. To start over, hit{" "}
               <span className={styles.code}>Space</span>. Once you&apos;ve
               solved the puzzle &#x28;or given up&#x29;, scroll down again to
@@ -201,7 +201,9 @@ export default function App() {
           ))}
         </div>
       </div>
-      <div className={styles.solutionContainer}>
+      <div
+        className={`${styles.solutionContainer} ${styles.textPageContainer}`}
+      >
         <div className={styles.textContent}>
           <h1>The solution</h1>
           <div className={styles.textBody}>
@@ -212,7 +214,7 @@ export default function App() {
             </p>
             <p>
               Let&apos;s see if we can find some property that <em>all</em>{" "}
-              chains must share. Consider the <em>number</em> of ■ in the chain.
+              chains must have. Consider the <em>number</em> of ■ in the chain.
               Let&apos;s call this the ■-count. Which rules <em>change</em> a
               chain&apos;s ■-count? If you take a look, you&apos;ll notice that
               only <b>Rule II</b> and <b>Rule III</b> do. Specifically,{" "}
@@ -242,7 +244,7 @@ export default function App() {
               chain, trying every combination, waiting to see whether □ appears
               or not. While that low level is powerful enough to illustrate e.g.
               why □■ <em>is</em> producable, it is <em>not</em> powerful enough
-              to explain why □ is <em>not</em>. For that, we needed to step
+              to explain e.g. why □ is <em>not</em>. For that, we needed to step
               "outside" that system to a more powerful one of mathematics and
               logic.
             </p>
