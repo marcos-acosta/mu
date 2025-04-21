@@ -32,12 +32,12 @@ export default function EndAction(props: EndActionProps) {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <rect
-                    x="1"
-                    y="1"
-                    width="13"
-                    height="13"
+                    x="1.5"
+                    y="1.5"
+                    width="12"
+                    height="12"
                     stroke="var(--background)"
-                    strokeWidth="2"
+                    strokeWidth="1.5"
                   />
                 </svg>
               </div>
