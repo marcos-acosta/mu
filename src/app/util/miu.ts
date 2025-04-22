@@ -1,5 +1,5 @@
-export const LETTER_I = "I";
-export const LETTER_U = "U";
+export const LETTER_I = "■";
+export const LETTER_U = "□";
 
 export interface Rule {
   ruleNumber: number;
@@ -10,6 +10,7 @@ export interface Rule {
 export type TheoremString = string[];
 
 export interface NewStateWithIntermediateStates {
+  appliedRule: number;
   newState: TheoremString;
   intermediateStates: TheoremString[];
 }
@@ -74,6 +75,7 @@ export const applyRule1 = (
 ): NewStateWithIntermediateStates => ({
   newState: [...string, LETTER_U],
   intermediateStates: [],
+  appliedRule: 1,
 });
 
 export const applyRule2 = (
@@ -84,6 +86,7 @@ export const applyRule2 = (
     ...string,
     ...string.slice(0, i),
   ]),
+  appliedRule: 2,
 });
 
 export const applyRule3 = (
@@ -99,6 +102,7 @@ export const applyRule3 = (
     ...string.slice(0, startIndex),
     ...string.slice(startIndex + i + 1),
   ]),
+  appliedRule: 3,
 });
 
 export const applyRule4 = (
@@ -109,6 +113,7 @@ export const applyRule4 = (
   intermediateStates: [
     [...string.slice(0, startIndex), ...string.slice(startIndex + 1)],
   ],
+  appliedRule: 4,
 });
 
 export const applyRule = (
@@ -128,6 +133,22 @@ export const applyRule = (
       return {
         newState: string,
         intermediateStates: [],
+        appliedRule: 0,
       };
+  }
+};
+
+export const ruleNumberToNumeral = (number: number) => {
+  switch (number) {
+    case 1:
+      return "I";
+    case 2:
+      return "II";
+    case 3:
+      return "III";
+    case 4:
+      return "IV";
+    default:
+      return "";
   }
 };

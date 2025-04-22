@@ -34,6 +34,61 @@
   background-color: var(--theme-blue);
 }
 
+.graphContainer {
+  width: 100vw;
+  height: 100vh;
+  scroll-snap-align: start;
+  position: relative;
+}
+
+.graphTitle {
+  position: absolute;
+  font-size: 2.5rem;
+  top: 40px;
+  left: 40px;
+  font-weight: bold;
+}
+
+.zoomContainer {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  display: flex;
+  flex-direction: row;
+}
+
+.zoomButton {
+  width: 60px;
+  height: 60px;
+  background-color: var(--background);
+  border: 1px solid var(--foreground);
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1;
+  transition-property: background-color;
+  transition-duration: 0.25s;
+}
+
+.zoomButton:hover {
+  background-color: rgb(244, 244, 244);
+}
+
+.graphCanvas {
+  z-index: 0;
+  display: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.zoomButton:last-child {
+  border-left: none;
+}
+
 .textContent {
   text-align: left;
   width: min(60%, 800px);

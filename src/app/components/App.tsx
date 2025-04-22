@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./App.module.css";
 import {
   applyRule,
@@ -14,11 +14,29 @@ import {
 import Action from "./Action";
 import { getKeyIndex } from "../util/keyboard";
 import EndAction from "./EndAction";
+import cytoscape from "cytoscape";
+
+interface GraphElement {
+  group: "nodes" | "edges";
+  data: {
+    id: string;
+    parent?: string;
+    source?: string;
+    target?: string;
+    label?: string;
+  };
+}
 
 export default function App() {
   const [string, setString] = useState([LETTER_I]);
   const [history, setHistory] = useState<TheoremString[]>([]);
   const [showActions, setShowActions] = useState(true);
+  const [chains, setChains] = useState<Set<string>>(new Set([LETTER_I]));
+  const [elements, setElements] = useState<GraphElement[]>([
+    { group: "nodes", data: { id: LETTER_I } },
+  ]);
+  const [zoom, setZoom] = useState(1);
+  const graphElementRef = useRef<HTMLDivElement>(null);
 
   const isRule1Applicable = canApplyRule1(string);
   const spanRules = getAllSpanRules(string);
@@ -42,13 +60,37 @@ export default function App() {
     newStateWithTransition: NewStateWithIntermediateStates,
     speedMillis?: number
   ) => {
-    const allStates = [
-      ...newStateWithTransition.intermediateStates,
-      newStateWithTransition.newState,
-    ];
+    const newState = newStateWithTransition.newState;
+    const allStates = [...newStateWithTransition.intermediateStates, newState];
     const firstState = allStates[0];
     const restOfStates = allStates.slice(1);
+    const appliedRule = newStateWithTransition.appliedRule;
     setString(firstState);
+    setChains((prevChains) => {
+      const newChains = new Set<string>(prevChains);
+      newChains.add(newState.join(""));
+      return newChains;
+    });
+    const currentChainString = string.join("");
+    const nextChainString = newState.join("");
+    const edgeId = `${currentChainString}-${nextChainString}`;
+    let newElements: GraphElement[] = [
+      ...elements,
+      {
+        group: "edges",
+        data: {
+          id: edgeId,
+          source: currentChainString,
+          target: nextChainString,
+          label: `Rule ${appliedRule}`,
+        },
+      },
+    ];
+    // New chain, add to graph
+    if (!chains.has(newState.join(""))) {
+      newElements.push({ group: "nodes", data: { id: nextChainString } });
+    }
+    setElements(newElements);
     setHistory((prevHistory) => [...prevHistory, string]);
     if (restOfStates.length === 0) {
       return;
@@ -96,6 +138,54 @@ export default function App() {
     addEventListener("keydown", handleKeyPress);
     return () => removeEventListener("keydown", handleKeyPress);
   }, [allRules, string, showActions]);
+
+  useEffect(() => {
+    cytoscape({
+      container: graphElementRef.current,
+      zoomingEnabled: true,
+      userZoomingEnabled: false,
+      zoom: zoom,
+      elements: elements,
+      style: [
+        // the stylesheet for the graph
+        {
+          selector: "node",
+          style: {
+            "background-opacity": 0,
+            "text-background-color": "white",
+            "text-background-shape": "rectangle",
+            "text-background-opacity": 1,
+            label: "data(id)",
+            "text-halign": "center",
+            "text-valign": "center",
+          },
+        },
+        {
+          selector: "edge",
+          style: {
+            width: 1,
+            "line-color": "#292929",
+            "target-arrow-color": "#292929",
+            "target-arrow-shape": "triangle",
+            "curve-style": "bezier",
+            label: "data(label)",
+            "text-halign": "center",
+            "text-valign": "center",
+            "text-background-color": "white",
+            "text-background-shape": "rectangle",
+            "text-background-opacity": 1,
+          },
+        },
+      ],
+      layout: {
+        name: "breadthfirst",
+        directed: true,
+        nodeDimensionsIncludeLabels: true,
+        fit: true,
+      },
+    });
+    console.log("Updated");
+  }, [graphElementRef.current, string, zoom]);
 
   return (
     <div className={styles.scrollContainer}>
@@ -199,6 +289,50 @@ export default function App() {
               )}
             </div>
           ))}
+        </div>
+      </div>
+      <div className={styles.graphContainer}>
+        <div className={styles.graphCanvas} ref={graphElementRef} />
+        <div className={styles.graphTitle}>Compendium</div>
+        <div className={styles.zoomContainer}>
+          <button
+            className={styles.zoomButton}
+            onClick={() => setZoom(zoom * 0.75)}
+          >
+            <svg
+              width="50%"
+              height="50%"
+              viewBox="0 0 15 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2.25 7.5C2.25 7.22386 2.47386 7 2.75 7H12.25C12.5261 7 12.75 7.22386 12.75 7.5C12.75 7.77614 12.5261 8 12.25 8H2.75C2.47386 8 2.25 7.77614 2.25 7.5Z"
+                fill="currentColor"
+                fillRule="evenodd"
+                clipRule="evenodd"
+              ></path>
+            </svg>
+          </button>
+          <button
+            className={styles.zoomButton}
+            onClick={() => setZoom(zoom * 1.25)}
+          >
+            <svg
+              viewBox="0 0 15 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              width="50%"
+              height="50%"
+            >
+              <path
+                d="M8 2.75C8 2.47386 7.77614 2.25 7.5 2.25C7.22386 2.25 7 2.47386 7 2.75V7H2.75C2.47386 7 2.25 7.22386 2.25 7.5C2.25 7.77614 2.47386 8 2.75 8H7V12.25C7 12.5261 7.22386 12.75 7.5 12.75C7.77614 12.75 8 12.5261 8 12.25V8H12.25C12.5261 8 12.75 7.77614 12.75 7.5C12.75 7.22386 12.5261 7 12.25 7H8V2.75Z"
+                fill="currentColor"
+                fillRule="evenodd"
+                clipRule="evenodd"
+              ></path>
+            </svg>
+          </button>
         </div>
       </div>
       <div
