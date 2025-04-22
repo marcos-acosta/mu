@@ -24,6 +24,22 @@ const LAYOUT: cytoscape.LayoutOptions = {
   spacingFactor: 0.75,
 };
 
+const BASIC_EDGE_STYLE: cytoscape.Css.Edge = {
+  width: 1,
+  "line-color": "#ff00ff",
+  "target-arrow-color": "#292929",
+  "target-arrow-shape": "triangle",
+  "curve-style": "bezier",
+  label: "data(label)",
+  "text-halign": "center",
+  "text-valign": "center",
+  color: "white",
+  "font-family": "monospace",
+  "text-background-shape": "rectangle",
+  "text-background-padding": "2px",
+  "text-background-opacity": 1,
+};
+
 export default function App() {
   const [string, setString] = useState([LETTER_I]);
   const [history, setHistory] = useState<TheoremString[]>([]);
@@ -199,26 +215,46 @@ export default function App() {
               "background-opacity": 0,
               "text-background-color": "white",
               "text-background-shape": "rectangle",
-              "text-background-opacity": 1,
+              "text-background-opacity": 0,
               label: "data(id)",
               "text-halign": "center",
               "text-valign": "center",
             },
           },
           {
-            selector: "edge",
+            selector: 'edge[label = "1"]',
             style: {
-              width: 1,
-              "line-color": "#292929",
-              "target-arrow-color": "#292929",
-              "target-arrow-shape": "triangle",
-              "curve-style": "bezier",
-              label: "data(label)",
-              "text-halign": "center",
-              "text-valign": "center",
-              "text-background-color": "white",
-              "text-background-shape": "rectangle",
-              "text-background-opacity": 1,
+              ...BASIC_EDGE_STYLE,
+              "line-color": "#cb769e",
+              "target-arrow-color": "#cb769e",
+              "text-background-color": "#cb769e",
+            },
+          },
+          {
+            selector: 'edge[label = "2"]',
+            style: {
+              ...BASIC_EDGE_STYLE,
+              "line-color": "#6290c3",
+              "target-arrow-color": "#6290c3",
+              "text-background-color": "#6290c3",
+            },
+          },
+          {
+            selector: 'edge[label = "3"]',
+            style: {
+              ...BASIC_EDGE_STYLE,
+              "line-color": "#adbca5",
+              "target-arrow-color": "#adbca5",
+              "text-background-color": "#adbca5",
+            },
+          },
+          {
+            selector: 'edge[label = "4"]',
+            style: {
+              ...BASIC_EDGE_STYLE,
+              "line-color": "#e09891",
+              "target-arrow-color": "#e09891",
+              "text-background-color": "#e09891",
             },
           },
         ],
@@ -236,6 +272,7 @@ export default function App() {
     if (cyObject.current.cy) {
       console.log(cyObject.current.cy.elements().jsons());
       cyObject.current.cy.layout(LAYOUT).run();
+      cyObject.current.cy.style().update();
       cyObject.current.cy.fit();
     }
   }, [cyObject.current.cy?.elements().length]);
@@ -274,38 +311,36 @@ export default function App() {
             </p>
             <ul className={styles.rulesList}>
               <li>
-                <div className={`${styles.strong} ${styles.rule1}`}>Rule I</div>{" "}
+                <div className={`${styles.strong} ${styles.rule1}`}>Rule 1</div>{" "}
                 If your chain ends with a ■, you can add a □ to the end of the
                 chain.
               </li>
               <li>
-                <div className={`${styles.strong} ${styles.rule2}`}>
-                  Rule II
-                </div>{" "}
+                <div className={`${styles.strong} ${styles.rule2}`}>Rule 2</div>{" "}
                 You can always add a copy of your chain to the end of the chain.
               </li>
               <li>
-                <div className={`${styles.strong} ${styles.rule3}`}>
-                  Rule III
-                </div>{" "}
+                <div className={`${styles.strong} ${styles.rule3}`}>Rule 3</div>{" "}
                 If your chain contains three ■ in a row, you can replace them
                 with one □.
               </li>
               <li>
-                <div className={`${styles.strong} ${styles.rule4}`}>
-                  Rule IV
-                </div>{" "}
+                <div className={`${styles.strong} ${styles.rule4}`}>Rule 4</div>{" "}
                 If your chain contains two □ in a row, you can delete them.
               </li>
             </ul>
             <p>
-              When you scroll down, you&apos;ll be able to click on available
-              rules &#x28;or use the indicated keyboard shortcuts&#x29; to
-              manipulate the chain. To go back one step, hit{" "}
+              When you scroll down to the next screen, you&apos;ll be able to
+              click on available rules &#x28;or use the indicated keyboard
+              shortcuts&#x29; to manipulate the chain. To go back one step, hit{" "}
               <span className={styles.code}>Delete</span>. To start over, hit{" "}
-              <span className={styles.code}>Space</span>. Once you&apos;ve
-              solved the puzzle &#x28;or given up&#x29;, scroll down again to
-              read the conclusion.
+              <span className={styles.code}>Space</span>.
+            </p>
+            <p>
+              If you scroll down one more screen, you&apos;ll find a graphical
+              representation of all the chains you&apos;ve discovered. Once
+              you&apos;ve solved the puzzle &#x28;or given up&#x29;, scroll down
+              to the last screen to read the conclusion.
             </p>
             <p>Have fun!</p>
           </div>
@@ -404,9 +439,9 @@ export default function App() {
               chains must have. Consider the <em>number</em> of ■ in the chain.
               Let&apos;s call this the ■-count. Which rules <em>change</em> a
               chain&apos;s ■-count? If you take a look, you&apos;ll notice that
-              only <b>Rule II</b> and <b>Rule III</b> do. Specifically,{" "}
-              <b>Rule II</b> doubles the ■-count, while <b>Rule III</b>{" "}
-              decreases it by three.
+              only <b>Rule 2</b> and <b>Rule 3</b> do. Specifically,{" "}
+              <b>Rule 2</b> doubles the ■-count, while <b>Rule 3</b> decreases
+              it by three.
             </p>
             <p>
               Here is the key insight: Note that if a ■-count isn&apos;t
