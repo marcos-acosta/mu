@@ -1,5 +1,5 @@
 const KEYS =
-  "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()+=";
+  "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
 
 export const getIthShortcut = (i: number) => {
   return KEYS.charAt(i);

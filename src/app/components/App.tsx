@@ -16,27 +16,21 @@ import { getKeyIndex } from "../util/keyboard";
 import EndAction from "./EndAction";
 import cytoscape from "cytoscape";
 
-interface GraphElement {
-  group: "nodes" | "edges";
-  data: {
-    id: string;
-    parent?: string;
-    source?: string;
-    target?: string;
-    label?: string;
-  };
-}
+const LAYOUT: cytoscape.LayoutOptions = {
+  name: "breadthfirst",
+  directed: true,
+  nodeDimensionsIncludeLabels: true,
+  roots: [LETTER_I],
+  spacingFactor: 0.75,
+};
 
 export default function App() {
   const [string, setString] = useState([LETTER_I]);
   const [history, setHistory] = useState<TheoremString[]>([]);
   const [showActions, setShowActions] = useState(true);
   const [chains, setChains] = useState<Set<string>>(new Set([LETTER_I]));
-  const [elements, setElements] = useState<GraphElement[]>([
-    { group: "nodes", data: { id: LETTER_I } },
-  ]);
-  const [zoom, setZoom] = useState(1);
   const graphElementRef = useRef<HTMLDivElement>(null);
+  const cyObject = useRef<{ cy?: cytoscape.Core }>({ cy: undefined });
 
   const isRule1Applicable = canApplyRule1(string);
   const spanRules = getAllSpanRules(string);
@@ -74,15 +68,15 @@ export default function App() {
     const currentChainString = string.join("");
     const nextChainString = newState.join("");
     const edgeId = `${currentChainString}-${nextChainString}`;
-    let newElements: GraphElement[] = [
-      ...elements,
+    // TODO: Check if this exists before adding too
+    let newElements: cytoscape.ElementDefinition[] = [
       {
         group: "edges",
         data: {
           id: edgeId,
           source: currentChainString,
           target: nextChainString,
-          label: `Rule ${appliedRule}`,
+          label: `${appliedRule}`,
         },
       },
     ];
@@ -90,7 +84,9 @@ export default function App() {
     if (!chains.has(newState.join(""))) {
       newElements.push({ group: "nodes", data: { id: nextChainString } });
     }
-    setElements(newElements);
+    if (cyObject.current.cy) {
+      cyObject.current.cy.add(newElements);
+    }
     setHistory((prevHistory) => [...prevHistory, string]);
     if (restOfStates.length === 0) {
       return;
@@ -112,6 +108,51 @@ export default function App() {
     animateStateTransition(newStateWithTransition);
   };
 
+  const zoomViewport = (cy: cytoscape.Core, factor: number) => {
+    // Get the current viewport center position
+    const pan = cy.pan();
+    const zoom = cy.zoom();
+
+    // Calculate the new zoom level
+    const newZoom = zoom * factor;
+
+    // Calculate the new pan position to keep the center point fixed
+    const renderedCenter = {
+      x: cy.width() / 2,
+      y: cy.height() / 2,
+    };
+
+    // Convert screen position to model position at current zoom
+    const modelCenter = {
+      x: (renderedCenter.x - pan.x) / zoom,
+      y: (renderedCenter.y - pan.y) / zoom,
+    };
+
+    // Calculate new pan position to maintain the same center
+    const newPan = {
+      x: renderedCenter.x - modelCenter.x * newZoom,
+      y: renderedCenter.y - modelCenter.y * newZoom,
+    };
+
+    // Apply the new zoom and pan
+    cy.viewport({
+      zoom: newZoom,
+      pan: newPan,
+    });
+  };
+
+  const zoomIn = (cy?: cytoscape.Core, increment: number = 1.5) => {
+    if (cy) {
+      zoomViewport(cy, increment);
+    }
+  };
+
+  const zoomOut = (cy?: cytoscape.Core, increment: number = 1.5) => {
+    if (cy) {
+      zoomViewport(cy, 1 / increment);
+    }
+  };
+
   const handleKeyPress = (event: KeyboardEvent) => {
     if (!showActions || event.ctrlKey || event.metaKey) {
       return;
@@ -125,6 +166,10 @@ export default function App() {
       event.preventDefault();
       setString(history[history.length - 1] || [LETTER_I]);
       setHistory(history.slice(0, -1));
+    } else if (key === "-") {
+      zoomOut(cyObject.current.cy);
+    } else if (key == "+") {
+      zoomIn(cyObject.current.cy);
     } else {
       const index = getKeyIndex(key);
       if (index !== null && index < allRules.length) {
@@ -140,52 +185,60 @@ export default function App() {
   }, [allRules, string, showActions]);
 
   useEffect(() => {
-    cytoscape({
-      container: graphElementRef.current,
-      zoomingEnabled: true,
-      userZoomingEnabled: false,
-      zoom: zoom,
-      elements: elements,
-      style: [
-        // the stylesheet for the graph
-        {
-          selector: "node",
-          style: {
-            "background-opacity": 0,
-            "text-background-color": "white",
-            "text-background-shape": "rectangle",
-            "text-background-opacity": 1,
-            label: "data(id)",
-            "text-halign": "center",
-            "text-valign": "center",
+    if (!cyObject.current.cy && graphElementRef.current) {
+      cyObject.current.cy = cytoscape({
+        container: graphElementRef.current,
+        zoomingEnabled: true,
+        userZoomingEnabled: false,
+        elements: [{ group: "nodes", data: { id: LETTER_I } }],
+        style: [
+          // the stylesheet for the graph
+          {
+            selector: "node",
+            style: {
+              "background-opacity": 0,
+              "text-background-color": "white",
+              "text-background-shape": "rectangle",
+              "text-background-opacity": 1,
+              label: "data(id)",
+              "text-halign": "center",
+              "text-valign": "center",
+            },
           },
-        },
-        {
-          selector: "edge",
-          style: {
-            width: 1,
-            "line-color": "#292929",
-            "target-arrow-color": "#292929",
-            "target-arrow-shape": "triangle",
-            "curve-style": "bezier",
-            label: "data(label)",
-            "text-halign": "center",
-            "text-valign": "center",
-            "text-background-color": "white",
-            "text-background-shape": "rectangle",
-            "text-background-opacity": 1,
+          {
+            selector: "edge",
+            style: {
+              width: 1,
+              "line-color": "#292929",
+              "target-arrow-color": "#292929",
+              "target-arrow-shape": "triangle",
+              "curve-style": "bezier",
+              label: "data(label)",
+              "text-halign": "center",
+              "text-valign": "center",
+              "text-background-color": "white",
+              "text-background-shape": "rectangle",
+              "text-background-opacity": 1,
+            },
           },
+        ],
+        layout: {
+          name: "breadthfirst",
+          directed: true,
+          nodeDimensionsIncludeLabels: true,
+          fit: true,
         },
-      ],
-      layout: {
-        name: "breadthfirst",
-        directed: true,
-        nodeDimensionsIncludeLabels: true,
-        fit: true,
-      },
-    });
-    console.log("Updated");
-  }, [graphElementRef.current, string, zoom]);
+      });
+    }
+  }, [graphElementRef.current]);
+
+  useEffect(() => {
+    if (cyObject.current.cy) {
+      console.log(cyObject.current.cy.elements().jsons());
+      cyObject.current.cy.layout(LAYOUT).run();
+      cyObject.current.cy.fit();
+    }
+  }, [cyObject.current.cy?.elements().length]);
 
   return (
     <div className={styles.scrollContainer}>
@@ -297,7 +350,7 @@ export default function App() {
         <div className={styles.zoomContainer}>
           <button
             className={styles.zoomButton}
-            onClick={() => setZoom(zoom * 0.75)}
+            onClick={() => zoomOut(cyObject.current.cy)}
           >
             <svg
               width="50%"
@@ -316,7 +369,7 @@ export default function App() {
           </button>
           <button
             className={styles.zoomButton}
-            onClick={() => setZoom(zoom * 1.25)}
+            onClick={() => zoomIn(cyObject.current.cy)}
           >
             <svg
               viewBox="0 0 15 15"
