@@ -304,10 +304,10 @@ export default function App() {
               same&#x29;.
             </p>
             <p>
-              You&apos;ll begin with a chain of just one ■. As you go along,
+              You&apos;ll begin with a single ■ in your chain. As you go along,
               you&apos;ll add and remove boxes from your chain. The goal of the
               puzzle is simple: to wind up with a single □. Of course, there are
-              rules for how you&apos;re allowed to manipuate your chain:
+              rules for how you&apos;re allowed to manipulate the chain:
             </p>
             <ul className={styles.rulesList}>
               <li>
@@ -337,7 +337,7 @@ export default function App() {
               <span className={styles.code}>Space</span>.
             </p>
             <p>
-              If you scroll down one more screen, you&apos;ll find a graphical
+              On the screen below that, you&apos;ll find a graphical
               representation of all the chains you&apos;ve discovered. Once
               you&apos;ve solved the puzzle &#x28;or given up&#x29;, scroll down
               to the last screen to read the conclusion.
@@ -427,55 +427,81 @@ export default function App() {
         className={`${styles.solutionContainer} ${styles.textPageContainer}`}
       >
         <div className={styles.textContent}>
-          <h1>The solution</h1>
+          <h1>The solution, and more that you didn&apos;t ask for</h1>
           <div className={styles.textBody}>
             <p>
               As you may have begun to suspect, it is <em>impossible</em> to
-              produce □. But <em>why</em>? To answer that question, we need to
-              reason about the rules of the puzzle themselves.
+              produce □. But <em>why</em>?
             </p>
             <p>
-              Let&apos;s see if we can find some property that <em>all</em>{" "}
-              chains must have. Consider the <em>number</em> of ■ in the chain.
-              Let&apos;s call this the ■-count. Which rules <em>change</em> a
-              chain&apos;s ■-count? If you take a look, you&apos;ll notice that
-              only <b>Rule 2</b> and <b>Rule 3</b> do. Specifically,{" "}
-              <b>Rule 2</b> doubles the ■-count, while <b>Rule 3</b> decreases
-              it by three.
+              I&apos;ll indirectly answer your question with another question.
+              What do these chains of boxes and the four rules{" "}
+              <em>represent</em>? The most obvious answer is
+              &quot;nothing&quot;. But we can choose another, surprisingly
+              satisfying interpretation.
             </p>
             <p>
-              Here is the key insight: Note that if a ■-count isn&apos;t
-              divisible by 3, then doubling it won&apos;t result in a ■-count
-              that&apos;s divisible by 3 &#x28;if that&apos;s not clear,
-              consider prime factors&#x29;. Also, decreasing the ■-count by 3
-              won&apos;t make it divisible by 3 unless it was already divisible
-              by 3 in the first place. So, since we start with a ■-count of 1,
-              which isn&apos;t divisible by 3, then there is <em>no</em>{" "}
-              combination of rules that would result in a ■-count that is
-              divisible by 3.
+              Imagine a filled-in box &#x28;■&#x29; represents one
+              &quot;tally&quot; and an empty box &#x28;□&#x29; is just a
+              placeholder. Additionally, each chain as a whole can be taken to
+              mean &quot;This number of tallies isn&apos;t divisible by
+              three&quot;. So, with this interpretation, ■ represents the
+              statement &quot;1 isn&apos;t divisible by three&quot;, and ■■□■■□
+              is interpreted as &quot;4 isn&apos;t divisible by three&quot;. If
+              you agree with this interpretation, then you should immediately
+              know the answer to the question, &quot;Can you make □?&quot; The
+              answer is no, because 0 <em>is</em> divisible by three. We could
+              also immediately discount the possibility of ■■■□ , ■■■□□■■■, and
+              countless other chains.
             </p>
             <p>
-              And there&apos;s our answer! Since our goal of □ has a ■-count of
-              0, which <em>is</em> divisible by 3, it cannot be produced by any
-              combination of rules.
+              This is actually the case: if you take a look at the four rules,
+              you&apos;ll notice that only Rule 2 and Rule 3 actually change the
+              ■-count. And if you start with a ■-count that&apos;s not divisible
+              by three, then doubling it &#x28;Rule 2&#x29; won&apos;t turn it
+              into a number that is, and neither will subtracting three from it
+              &#x28;Rule 3&#x29;. So there you have it: this system only
+              generates chains with a non-divisible-by-three ■-count.
             </p>
             <p>
-              This puzzle illustrates a powerful fact: that some low-level
-              phenomena can <em>only</em> be explained at a high level. In this
-              puzzle, the lowest level would be mechanically manipulating the
-              chain, trying every combination, waiting to see whether □ appears
-              or not. While that low level is powerful enough to illustrate e.g.
-              why □■ <em>is</em> producable, it is <em>not</em> powerful enough
-              to explain e.g. why □ is <em>not</em>. For that, we needed to step
-              "outside" that system to a more powerful one of mathematics and
-              logic.
+              Does the interpretation I gave above explain <em>why</em> □
+              isn&apos;t producible? Is it fair to say that □ cannot be produced{" "}
+              <em>because</em> our interpretation of the system forbids it? And
+              if not, how else could we possibly explain the impossibility of □?
             </p>
             <p>
-              Are there phenomena that can&apos;t be explained within the system
-              of mathematics and logic? Insights that are only accessible in an
-              even higher-level system? Now there&apos;s some food for
-              thought...
+              One objection is that we&apos;re mixing up <em>explanation</em>{" "}
+              with <em>causation</em>. In this case, it seems obvious that our
+              interpretation of the boxes didn&apos;t <em>cause</em> □ to be
+              un-producable, it&apos;s just <em>not</em>. Fair enough; I agree.
+              But in other cases, it feels very natural to explain low-level
+              events as being a consequence of higher-level interpretations. For
+              example, we explain the motions of objects as a consequence of the
+              laws of physics &#x28;deduction&#x29;, even though our invention
+              of the laws of physics was really a consequence of the motions of
+              objects &#x28;induction&#x29;. When we notice our friend is
+              getting left out of a friend group, we might attribute it to the
+              enigmantic &quot;group dynamic&quot;. How can a &quot;group
+              dynamic&quot; <em>cause</em> the thing it describes? And, of
+              course, we have the most tangled hierarchy of all: me &#x28;and
+              you&#x29;. I often attribute my actions to, well, myself. But my
+              concept of &quot;I&quot; is really just a high-level
+              interpretation of the low-level neural activity that{" "}
+              <em>actually</em> causes me to do anything. In a very strict
+              sense, my wants and desires can&apos;t cause me to do anything any
+              more than my interpretation of some colored boxes can cause □ to
+              be un-producible.
             </p>
+            <p>
+              I feel like I see this kind of &quot;downward causality&quot;
+              &#x28;as Hofstadter calls it&#x29; everywhere, which is why it
+              caught my interest. In a way, it&apos;s just an illusion;
+              there&apos;s no actual paradox until we <em>interpret</em> things
+              on a high level and use it to explain things on a lower level. But
+              since we like to do that often, I find it worth paying attention
+              to.
+            </p>
+            <br />
             <p className={styles.byline}>
               This web page was created by{" "}
               <a
