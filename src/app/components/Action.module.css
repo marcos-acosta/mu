@@ -104,6 +104,10 @@
   background-color: var(--theme-pink);
 }
 
+.rule1Connector.disabled {
+  background-color: var(--theme-pink-disabled);
+}
+
 .rule1Indicator {
   background-color: var(--theme-pink);
   cursor: pointer;
@@ -118,6 +122,11 @@
   padding-right: 8px;
 }
 
+.rule1Indicator.disabled {
+  background-color: var(--theme-pink-disabled);
+  cursor: initial;
+}
+
 .rule2Indicator {
   background-color: var(--theme-blue);
   cursor: pointer;
@@ -130,4 +139,9 @@
   width: 40px;
   padding-left: 8px;
   padding-right: 8px;
+}
+
+.rule2Indicator.disabled {
+  background-color: var(--theme-blue-disabled);
+  cursor: initial;
 }

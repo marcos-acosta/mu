@@ -1,6 +1,8 @@
 const KEYS =
   "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
 
+export const MAX_LENGTH = KEYS.length;
+
 export const getIthShortcut = (i: number) => {
   return KEYS.charAt(i);
 };

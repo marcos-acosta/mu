@@ -12,9 +12,10 @@ import {
   TheoremString,
 } from "../util/miu";
 import Action from "./Action";
-import { getKeyIndex } from "../util/keyboard";
+import { getKeyIndex, MAX_LENGTH } from "../util/keyboard";
 import EndAction from "./EndAction";
 import cytoscape from "cytoscape";
+import { combineClasses } from "../util/convenience";
 
 const LAYOUT: cytoscape.LayoutOptions = {
   name: "breadthfirst",
@@ -65,6 +66,9 @@ export default function App() {
   ].filter(Boolean) as Rule[];
 
   const cellWidth = `min(calc(100% / ${string.length}), 5%)`;
+
+  const tooLongForRule1 = string.length >= MAX_LENGTH;
+  const tooLongForRule2 = string.length > MAX_LENGTH / 2;
 
   const animateStateTransition = (
     newStateWithTransition: NewStateWithIntermediateStates,
@@ -120,6 +124,12 @@ export default function App() {
   };
 
   const applyRuleToString = (rule: Rule) => {
+    if (
+      (rule.ruleNumber === 1 && tooLongForRule1) ||
+      (rule.ruleNumber === 2 && tooLongForRule2)
+    ) {
+      return;
+    }
     const newStateWithTransition = applyRule(string, rule);
     animateStateTransition(newStateWithTransition);
   };
@@ -279,7 +289,12 @@ export default function App() {
 
   return (
     <div className={styles.scrollContainer}>
-      <div className={`${styles.introContainer} ${styles.textPageContainer}`}>
+      <div
+        className={combineClasses(
+          styles.introContainer,
+          styles.textPageContainer
+        )}
+      >
         <div className={styles.textContent}>
           <h1>Can you turn ■ into □?</h1>
           <div className={styles.textBody}>
@@ -311,21 +326,29 @@ export default function App() {
             </p>
             <ul className={styles.rulesList}>
               <li>
-                <div className={`${styles.strong} ${styles.rule1}`}>Rule 1</div>{" "}
+                <div className={combineClasses(styles.strong, styles.rule1)}>
+                  Rule 1
+                </div>{" "}
                 If your chain ends with a ■, you can add a □ to the end of the
                 chain.
               </li>
               <li>
-                <div className={`${styles.strong} ${styles.rule2}`}>Rule 2</div>{" "}
+                <div className={combineClasses(styles.strong, styles.rule2)}>
+                  Rule 2
+                </div>{" "}
                 You can always add a copy of your chain to the end of the chain.
               </li>
               <li>
-                <div className={`${styles.strong} ${styles.rule3}`}>Rule 3</div>{" "}
+                <div className={combineClasses(styles.strong, styles.rule3)}>
+                  Rule 3
+                </div>{" "}
                 If your chain contains three ■ in a row, you can replace them
                 with one □.
               </li>
               <li>
-                <div className={`${styles.strong} ${styles.rule4}`}>Rule 4</div>{" "}
+                <div className={combineClasses(styles.strong, styles.rule4)}>
+                  Rule 4
+                </div>{" "}
                 If your chain contains two □ in a row, you can delete them.
               </li>
             </ul>
@@ -371,6 +394,8 @@ export default function App() {
                     <EndAction
                       rules={allRules}
                       applyRuleToString={applyRuleToString}
+                      rule1Allowed={!tooLongForRule1}
+                      rule2Allowed={!tooLongForRule2}
                     />
                   )}
                 </>
@@ -424,7 +449,10 @@ export default function App() {
         </div>
       </div>
       <div
-        className={`${styles.solutionContainer} ${styles.textPageContainer}`}
+        className={combineClasses(
+          styles.solutionContainer,
+          styles.textPageContainer
+        )}
       >
         <div className={styles.textContent}>
           <h1>The solution, and more that you didn&apos;t ask for</h1>

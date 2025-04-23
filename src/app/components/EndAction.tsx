@@ -1,10 +1,13 @@
-import { getIthShortcut } from "../util/keyboard";
+import { combineClasses } from "../util/convenience";
+import { getIthShortcut, MAX_LENGTH } from "../util/keyboard";
 import { Rule } from "../util/miu";
 import styles from "./Action.module.css";
 
 interface EndActionProps {
   rules: Rule[];
   applyRuleToString: (rule: Rule) => void;
+  rule1Allowed: boolean;
+  rule2Allowed: boolean;
 }
 
 export default function EndAction(props: EndActionProps) {
@@ -18,10 +21,20 @@ export default function EndAction(props: EndActionProps) {
       {rule1 && (
         <div className={styles.rule1AbsoluteContainer}>
           <div className={styles.relativeStackedContainer}>
-            <div className={styles.rule1Connector}></div>
             <div
-              className={styles.rule1Indicator}
-              onClick={() => props.applyRuleToString(rule1)}
+              className={combineClasses(
+                styles.rule1Connector,
+                !props.rule1Allowed && styles.disabled
+              )}
+            ></div>
+            <div
+              className={combineClasses(
+                styles.rule1Indicator,
+                !props.rule1Allowed && styles.disabled
+              )}
+              onClick={() =>
+                props.rule1Allowed && props.applyRuleToString(rule1)
+              }
             >
               <div className={styles.ruleNumber}>
                 <svg
@@ -54,8 +67,11 @@ export default function EndAction(props: EndActionProps) {
           style={{ left: rule1 ? "calc(100% + 13px)" : "calc(100% + 6px)" }}
         >
           <div
-            className={styles.rule2Indicator}
-            onClick={() => props.applyRuleToString(rule2)}
+            className={combineClasses(
+              styles.rule2Indicator,
+              !props.rule2Allowed && styles.disabled
+            )}
+            onClick={() => props.rule2Allowed && props.applyRuleToString(rule2)}
           >
             <div className={styles.ruleNumber}>
               <svg
