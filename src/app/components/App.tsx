@@ -318,18 +318,21 @@ export default function App() {
               . In one of the early chapters, Hofstadter introduces a
               deceptively simple puzzle called the{" "}
               <span className={styles.code}>MU</span>
-              &ndash;puzzle. The original puzzle uses the letters{" "}
+              &ndash;puzzle. It&apos;s a wonderful little puzzle that sets the
+              stage for the rest of the book, and I think about it often. On
+              this site, you&apos;ll get to explore it yourself!
+            </p>
+            <p>
+              The original puzzle uses the letters{" "}
               <span className={styles.code}>M</span>,{" "}
               <span className={styles.code}>U</span>, and{" "}
               <span className={styles.code}>I</span>, but for simplicity,
               we&apos;ll just use two symbols: ■ and □ &#x28;the puzzle is the
-              same&#x29;.
-            </p>
-            <p>
-              You&apos;ll begin with a single ■ in your chain. As you go along,
-              you&apos;ll add and remove boxes from your chain. The goal of the
-              puzzle is simple: to wind up with a single □. Of course, there are
-              rules for how you&apos;re allowed to manipulate the chain:
+              same&#x29;. You&apos;ll begin with a single ■ in your chain. As
+              you go along, you&apos;ll add and remove boxes from your chain.
+              The goal of the puzzle is simple: to wind up with a single □. Of
+              course, there are rules for how you&apos;re allowed to manipulate
+              the chain:
             </p>
             <ul className={styles.rulesList}>
               <li>
