@@ -60,6 +60,35 @@
   background-color: var(--background);
 }
 
+.nextPageButtonContainer {
+  position: absolute;
+  bottom: 100px;
+  right: 40px;
+  display: flex;
+}
+
+.nextPageButton {
+  width: 60px;
+  height: 60px;
+  background-color: var(--background);
+  border: 1px solid var(--foreground);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1;
+  transition-property: background-color;
+  transition-duration: 0.25s;
+}
+
+.nextPageButton:hover {
+  background-color: rgb(244, 244, 244);
+}
+
+.nextPageButton:last-child {
+  border-left: none;
+}
+
 .zoomContainer {
   position: absolute;
   bottom: 100px;
@@ -103,7 +132,7 @@
   text-align: left;
   width: min(60%, 800px);
   padding-top: 100px;
-  padding-bottom: 50px;
+  padding-bottom: 100px;
 }
 
 @media (width <= 700px) {

@@ -46,6 +46,8 @@ export default function App() {
   const [history, setHistory] = useState<TheoremString[]>([]);
   const [showActions, setShowActions] = useState(true);
   const graphElementRef = useRef<HTMLDivElement>(null);
+  const conclusionRef = useRef<HTMLDivElement>(null);
+  const exploreRef = useRef<HTMLDivElement>(null);
   const cyObject = useRef<{ cy?: cytoscape.Core }>({ cy: undefined });
 
   const isRule1Applicable = canApplyRule1(string);
@@ -298,6 +300,7 @@ export default function App() {
           styles.introContainer,
           styles.textPageContainer
         )}
+        id="intro"
       >
         <div className={styles.textContent}>
           <h1>Can you turn ■ into □?</h1>
@@ -371,7 +374,7 @@ export default function App() {
           </div>
         </div>
       </div>
-      <div className={styles.pageContainer}>
+      <div className={styles.pageContainer} id="explore" ref={exploreRef}>
         <div className={styles.lettersContainer}>
           {string.map((letter, index) => (
             <div
@@ -416,7 +419,7 @@ export default function App() {
           </button>
         </div>
       </div>
-      <div className={styles.graphContainer}>
+      <div className={styles.graphContainer} id="compendium">
         <div className={styles.graphCanvas} ref={graphElementRef} />
         <div className={styles.graphTitle}>Compendium</div>
         <div className={styles.zoomContainer}>
@@ -459,12 +462,58 @@ export default function App() {
             </svg>
           </button>
         </div>
+        <div className={styles.nextPageButtonContainer}>
+          <button
+            className={styles.nextPageButton}
+            onClick={() => {
+              exploreRef.current?.scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 15 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7.14645 2.14645C7.34171 1.95118 7.65829 1.95118 7.85355 2.14645L11.8536 6.14645C12.0488 6.34171 12.0488 6.65829 11.8536 6.85355C11.6583 7.04882 11.3417 7.04882 11.1464 6.85355L8 3.70711L8 12.5C8 12.7761 7.77614 13 7.5 13C7.22386 13 7 12.7761 7 12.5L7 3.70711L3.85355 6.85355C3.65829 7.04882 3.34171 7.04882 3.14645 6.85355C2.95118 6.65829 2.95118 6.34171 3.14645 6.14645L7.14645 2.14645Z"
+                fill="currentColor"
+                fillRule="evenodd"
+                clipRule="evenodd"
+              ></path>
+            </svg>
+          </button>
+          <button
+            className={styles.nextPageButton}
+            onClick={() => {
+              conclusionRef.current?.scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 15 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7.5 2C7.77614 2 8 2.22386 8 2.5L8 11.2929L11.1464 8.14645C11.3417 7.95118 11.6583 7.95118 11.8536 8.14645C12.0488 8.34171 12.0488 8.65829 11.8536 8.85355L7.85355 12.8536C7.75979 12.9473 7.63261 13 7.5 13C7.36739 13 7.24021 12.9473 7.14645 12.8536L3.14645 8.85355C2.95118 8.65829 2.95118 8.34171 3.14645 8.14645C3.34171 7.95118 3.65829 7.95118 3.85355 8.14645L7 11.2929L7 2.5C7 2.22386 7.22386 2 7.5 2Z"
+                fill="currentColor"
+                fillRule="evenodd"
+                clipRule="evenodd"
+              ></path>
+            </svg>
+          </button>
+        </div>
       </div>
       <div
         className={combineClasses(
           styles.solutionContainer,
           styles.textPageContainer
         )}
+        id="conclusion"
+        ref={conclusionRef}
       >
         <div className={styles.textContent}>
           <h1>The solution, and more that you didn&apos;t ask for</h1>
