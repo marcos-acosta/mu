@@ -5,6 +5,10 @@
   overflow: scroll;
 }
 
+.scrollContainer button {
+  color: var(--foreground);
+}
+
 .scrollContainer h1 {
   margin-bottom: 25px;
 }
@@ -53,11 +57,12 @@
   top: 40px;
   left: 40px;
   font-weight: bold;
+  background-color: var(--background);
 }
 
 .zoomContainer {
   position: absolute;
-  bottom: 40px;
+  bottom: 100px;
   left: 40px;
   display: flex;
   flex-direction: row;
@@ -99,6 +104,13 @@
   width: min(60%, 800px);
   padding-top: 100px;
   padding-bottom: 50px;
+}
+
+@media (width <= 700px) {
+  .textContent {
+    width: 90%;
+    padding-top: 50px;
+  }
 }
 
 .code {
