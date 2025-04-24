@@ -366,9 +366,8 @@ export default function App() {
               When you scroll down to the next screen, you&apos;ll be able to
               click on available rules &#x28;or use the indicated keyboard
               shortcuts&#x29; to manipulate the chain. On the screen below that,
-              you&apos;ll find a graphical representation of all the chains
-              you&apos;ve discovered. While this will work on mobile, the
-              experience is best on desktop.
+              you&apos;ll find an inventory of all the chains you&apos;ve
+              discovered.
             </p>
             <p>
               Once you&apos;ve solved the puzzle &#x28;or given up&#x29;, scroll
@@ -423,9 +422,9 @@ export default function App() {
           </button>
         </div>
       </div>
-      <div className={styles.graphContainer} id="compendium">
+      <div className={styles.graphContainer} id="inventory">
         <div className={styles.graphCanvas} ref={graphElementRef} />
-        <div className={styles.graphTitle}>Compendium</div>
+        <div className={styles.graphTitle}>Inventory</div>
         <div className={styles.zoomContainer}>
           <button
             className={styles.zoomButton}
