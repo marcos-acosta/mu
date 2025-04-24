@@ -142,12 +142,6 @@
   }
 }
 
-@media (width > 700px) {
-  .nextPageButtonContainer {
-    display: none;
-  }
-}
-
 .code {
   font-family: var(--font-geist-mono);
 }
