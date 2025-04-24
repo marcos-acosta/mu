@@ -14,8 +14,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "mu",
-  description: "Can you make MU?",
+  title: "□ puzzle",
+  description: "Can you turn □ into ■?",
 };
 
 export default function RootLayout({
