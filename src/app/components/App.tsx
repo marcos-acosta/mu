@@ -89,7 +89,7 @@ export default function App() {
     const nextChainString = newState.join("");
     const edgeId = `${currentChainString}-${nextChainString}`;
     // TODO: Check if this exists before adding too
-    let newElements: cytoscape.ElementDefinition[] = [
+    const newElements: cytoscape.ElementDefinition[] = [
       {
         group: "edges",
         data: {
