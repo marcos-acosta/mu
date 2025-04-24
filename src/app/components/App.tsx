@@ -45,7 +45,7 @@ export default function App() {
   const [string, setString] = useState([LETTER_I]);
   const [history, setHistory] = useState<TheoremString[]>([]);
   const [showActions, setShowActions] = useState(true);
-  const [chains, setChains] = useState<Set<string>>(new Set([LETTER_I]));
+  // const [chains, setChains] = useState<Set<string>>(new Set([LETTER_I]));
   const graphElementRef = useRef<HTMLDivElement>(null);
   const cyObject = useRef<{ cy?: cytoscape.Core }>({ cy: undefined });
 
@@ -80,32 +80,35 @@ export default function App() {
     const restOfStates = allStates.slice(1);
     const appliedRule = newStateWithTransition.appliedRule;
     setString(firstState);
-    setChains((prevChains) => {
-      const newChains = new Set<string>(prevChains);
-      newChains.add(newState.join(""));
-      return newChains;
-    });
-    const currentChainString = string.join("");
-    const nextChainString = newState.join("");
-    const edgeId = `${currentChainString}-${nextChainString}`;
-    // TODO: Check if this exists before adding too
-    const newElements: cytoscape.ElementDefinition[] = [
-      {
-        group: "edges",
-        data: {
-          id: edgeId,
-          source: currentChainString,
-          target: nextChainString,
-          label: `${appliedRule}`,
-        },
-      },
-    ];
-    // New chain, add to graph
-    if (!chains.has(newState.join(""))) {
-      newElements.push({ group: "nodes", data: { id: nextChainString } });
-    }
+    // setChains((prevChains) => {
+    //   const newChains = new Set<string>(prevChains);
+    //   newChains.add(newState.join(""));
+    //   return newChains;
+    // });
+
     if (cyObject.current.cy) {
-      cyObject.current.cy.add(newElements);
+      const currentChainString = string.join("");
+      const nextChainString = newState.join("");
+      const edgeId = `${currentChainString}-${nextChainString}`;
+      // Add node if it doesn't already exist
+      if (!cyObject.current.cy.getElementById(nextChainString).size()) {
+        cyObject.current.cy.add({
+          group: "nodes",
+          data: { id: nextChainString },
+        });
+      }
+      // Add edge if it doesn't already exist
+      if (!cyObject.current.cy.getElementById(edgeId).size()) {
+        cyObject.current.cy.add({
+          group: "edges",
+          data: {
+            id: edgeId,
+            source: currentChainString,
+            target: nextChainString,
+            label: `${appliedRule}`,
+          },
+        });
+      }
     }
     setHistory((prevHistory) => [...prevHistory, string]);
     if (restOfStates.length === 0) {
@@ -179,6 +182,16 @@ export default function App() {
     }
   };
 
+  const reset = () => {
+    setString([LETTER_I]);
+    setHistory([]);
+  };
+
+  const undo = () => {
+    setString(history[history.length - 1] || [LETTER_I]);
+    setHistory(history.slice(0, -1));
+  };
+
   const handleKeyPress = (event: KeyboardEvent) => {
     if (!showActions || event.ctrlKey || event.metaKey) {
       return;
@@ -186,12 +199,10 @@ export default function App() {
     const key = event.key;
     if (key === " ") {
       event.preventDefault();
-      setString([LETTER_I]);
-      setHistory([]);
+      reset();
     } else if (key === "Backspace") {
       event.preventDefault();
-      setString(history[history.length - 1] || [LETTER_I]);
-      setHistory(history.slice(0, -1));
+      undo();
     } else if (key === "-") {
       zoomOut(cyObject.current.cy);
     } else if (key == "+") {
