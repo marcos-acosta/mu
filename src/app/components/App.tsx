@@ -357,13 +357,13 @@ export default function App() {
               click on available rules &#x28;or use the indicated keyboard
               shortcuts&#x29; to manipulate the chain. To go back one step, hit{" "}
               <span className={styles.code}>Delete</span>. To start over, hit{" "}
-              <span className={styles.code}>Space</span>.
+              <span className={styles.code}>Space</span>. On the screen below
+              that, you&apos;ll find a graphical representation of all the
+              chains you&apos;ve discovered.
             </p>
             <p>
-              On the screen below that, you&apos;ll find a graphical
-              representation of all the chains you&apos;ve discovered. Once
-              you&apos;ve solved the puzzle &#x28;or given up&#x29;, scroll down
-              to the last screen to read the conclusion.
+              Once you&apos;ve solved the puzzle &#x28;or given up&#x29;, scroll
+              down to the last screen to read the conclusion.
             </p>
             <p>Have fun!</p>
           </div>
@@ -469,18 +469,19 @@ export default function App() {
               satisfying interpretation.
             </p>
             <p>
-              Imagine a filled-in box &#x28;■&#x29; represents one
+              Suppose a filled-in box &#x28;■&#x29; represents one
               &quot;tally&quot; and an empty box &#x28;□&#x29; is just a
               placeholder. Additionally, each chain as a whole can be taken to
               mean &quot;This number of tallies isn&apos;t divisible by
               three&quot;. So, with this interpretation, ■ represents the
               statement &quot;1 isn&apos;t divisible by three&quot;, and ■■□■■□
               is interpreted as &quot;4 isn&apos;t divisible by three&quot;. If
-              you agree with this interpretation, then you should immediately
+              you agreed that this system is sound &#x28;i.e. can only produce
+              true statements when interpreted&#x29;, then you would immediately
               know the answer to the question, &quot;Can you make □?&quot; The
-              answer is no, because 0 <em>is</em> divisible by three. We could
-              also immediately discount the possibility of ■■■□ , ■■■□□■■■, and
-              countless other chains.
+              answer is no, because it represents "0 isn&apos;t divisible by
+              three", which is false. We could also immediately discount the
+              possibility of ■■■□ , ■■■□□■■■, and countless other chains.
             </p>
             <p>
               This is actually the case: if you take a look at the four rules,
@@ -501,24 +502,25 @@ export default function App() {
               One objection is that we&apos;re mixing up <em>explanation</em>{" "}
               with <em>causation</em>. In this case, it seems obvious that our
               interpretation of the boxes didn&apos;t <em>cause</em> □ to be
-              un-producable, it&apos;s just <em>not</em>. Fair enough; I agree.
-              But in other cases, it feels very natural to explain low-level
-              events as being a consequence of higher-level interpretations. For
-              example, we explain the motions of objects as a consequence of the
-              laws of physics &#x28;deduction&#x29;, even though our invention
-              of the laws of physics was really a consequence of the motions of
-              objects &#x28;induction&#x29;. When we notice our friend is
-              getting left out of a friend group, we might attribute it to the
-              enigmantic &quot;group dynamic&quot;. How can a &quot;group
-              dynamic&quot; <em>cause</em> the thing it describes? And, of
-              course, we have the most tangled hierarchy of all: me &#x28;and
-              you&#x29;. I often attribute my actions to, well, myself. But my
-              concept of &quot;I&quot; is really just a high-level
-              interpretation of the low-level neural activity that{" "}
-              <em>actually</em> causes me to do anything. In a very strict
-              sense, my wants and desires can&apos;t cause me to do anything any
-              more than my interpretation of some colored boxes can cause □ to
-              be un-producible.
+              un-producable, it&apos;s just <em>not</em>. The rules are the only
+              &quot;real&quot; thing, and our interpretation is purely
+              derivative. Fair enough; I agree. But in other cases, it feels
+              very natural to explain low-level events as being a consequence of
+              higher-level interpretations. For example, we explain the motions
+              of objects as a consequence of the laws of physics
+              &#x28;deduction&#x29;, even though our invention of the laws of
+              physics was really a consequence of the motions of objects
+              &#x28;induction&#x29;. When we notice our friend is getting left
+              out of a friend group, we might attribute it to the enigmantic
+              &quot;group dynamic&quot;. How can a &quot;group dynamic&quot;{" "}
+              <em>cause</em> the thing it describes? And, of course, we have the
+              most tangled hierarchy of all: me &#x28;and you&#x29;. I often
+              attribute my actions to, well, myself. But my concept of
+              &quot;I&quot; is really just a high-level interpretation of the
+              low-level neural activity that <em>actually</em> causes me to do
+              anything. In a very strict sense, my wants and desires can&apos;t
+              cause me to do anything any more than my interpretation of some
+              colored boxes can cause □ to be un-producible.
             </p>
             <p>
               I feel like I see this kind of &quot;downward causality&quot;
