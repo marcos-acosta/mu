@@ -364,7 +364,8 @@ export default function App() {
               click on available rules &#x28;or use the indicated keyboard
               shortcuts&#x29; to manipulate the chain. On the screen below that,
               you&apos;ll find a graphical representation of all the chains
-              you&apos;ve discovered.
+              you&apos;ve discovered. While this will work on mobile, the
+              experience is best on desktop.
             </p>
             <p>
               Once you&apos;ve solved the puzzle &#x28;or given up&#x29;, scroll
