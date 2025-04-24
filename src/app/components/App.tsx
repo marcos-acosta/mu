@@ -373,6 +373,10 @@ export default function App() {
               Once you&apos;ve solved the puzzle &#x28;or given up&#x29;, scroll
               down to the last screen to read the conclusion.
             </p>
+            <p>
+              Finally, while this site works on mobile, you&apos;ll probably
+              have a better experience on desktop.
+            </p>
             <p>Have fun!</p>
           </div>
         </div>
@@ -539,37 +543,72 @@ export default function App() {
               mean &quot;This number of tallies isn&apos;t divisible by
               three&quot;. So, with this interpretation, ■ represents the
               statement &quot;1 isn&apos;t divisible by three&quot;, and ■■□■■□
-              is interpreted as &quot;4 isn&apos;t divisible by three&quot;. If
-              you agreed that this system is sound &#x28;i.e. can only produce
-              true statements when interpreted&#x29;, then you would immediately
-              know the answer to the question, &quot;Can you make □?&quot; The
-              answer is no, because it represents &quot;0 isn&apos;t divisible
-              by three&quot;, which is false. We could also immediately discount
-              the possibility of ■■■□ , ■■■□□■■■, and countless other chains.
+              is interpreted as &quot;4 isn&apos;t divisible by three&quot;.
             </p>
             <p>
-              This is actually the case: if you take a look at the four rules,
-              you&apos;ll notice that only Rule 2 and Rule 3 actually change the
-              ■-count. And if you start with a ■-count that&apos;s not divisible
-              by three, then doubling it &#x28;Rule 2&#x29; won&apos;t turn it
-              into a number that is, and neither will subtracting three from it
+              Why would we choose this interpretation? Without thinking too
+              hard, you might go back and check your inventory and notice that
+              every chain, when interpreted, is true! That&apos;s because
+              there&apos;s an{" "}
+              <em>
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href="https://worldsworstdetective.com/formal-systems#isomorphism"
+                >
+                  isomorphism
+                </a>
+              </em>{" "}
+              between our system &#x28;by &quot;system&quot;, I mean the rules
+              and our starting chain put together&#x29; and the concept of
+              divisibility by three.
+            </p>
+            <p>
+              You might be skeptical. How do we <em>know</em> that this
+              interpretation is valid? In this case, we can use some basic math
+              and logic: if you take a look at the four rules, you&apos;ll
+              notice that only Rule 2 and Rule 3 actually change the ■-count.
+              And if you start with a ■-count that&apos;s not divisible by
+              three, then doubling it &#x28;Rule 2&#x29; won&apos;t turn it into
+              a number that is, and neither will subtracting three from it
               &#x28;Rule 3&#x29;. So there you have it: this system only
               generates chains with a non-divisible-by-three ■-count.
             </p>
             <p>
-              Does the interpretation I gave above explain <em>why</em> □
-              isn&apos;t producible? Is it fair to say that □ cannot be produced{" "}
-              <em>because</em> our interpretation of the system forbids it? And
-              if not, how else could we possibly explain the impossibility of □?
+              Armed with this new interpretation, we immediately know the answer
+              to the question, &quot;Can you make □?&quot; The answer is no,
+              because it represents the statement &quot;0 isn&apos;t divisible
+              by three&quot;, which is false. We could also immediately discount
+              the possibility of ■■■□ , ■■■□□■■■, and countless other chains.
             </p>
             <p>
-              One objection is that we&apos;re mixing up <em>explanation</em>{" "}
-              with <em>causation</em>. In this case, it seems obvious that our
-              interpretation of the boxes didn&apos;t <em>cause</em> □ to be
-              un-producable, it&apos;s just <em>not</em>. The rules are the only
-              &quot;real&quot; thing, and our interpretation is purely
-              derivative. Fair enough; I agree. But in other cases, it feels
-              very natural to explain low-level events as being a consequence of
+              What&apos;s cool about this example is that it illustrates the
+              fact that sometimes, the explanation for a certain fact{" "}
+              <em>does not exist</em> at the lowest level. In this case, that
+              &quot;low level&apos; is mechanically producing new chains, like
+              you were probably doing at first. As humans, though, we can&apos;t
+              help &quot;jumping out&quot; of that system and begin wondering{" "}
+              <em>about the system itself</em>. It was only at this higher
+              level, that of math and logic, where we were able to solve the
+              puzzle. Actually, not only did our higher-level interpretation
+              allow us to solve this particular puzzle, it enables us to
+              immediately solve <em>any</em> &quot;Can you make _?&quot;-type
+              puzzle within the system.
+            </p>
+            <p>
+              Here&apos;s an especially weird question: did our interpretation
+              of the system <em>cause</em> □ to be un-producable?
+            </p>
+            <p>
+              Obviously, we&apos;re mixing up <em>explanation</em> with{" "}
+              <em>causation</em>; our interpretation of the boxes didn&apos;t{" "}
+              <em>cause</em> □ to be un-producable, it&apos;s just <em>not</em>.
+              The rules are the only &quot;real&quot; thing, and we just based
+              our interpretation off of it.
+            </p>
+            <p>
+              But interestingly, in other cases, it feels very natural to
+              explain low-level events as being a <em>consequence</em> of
               higher-level interpretations. For example, we explain the motions
               of objects as a consequence of the laws of physics
               &#x28;deduction&#x29;, even though our invention of the laws of
@@ -590,10 +629,10 @@ export default function App() {
               I feel like I see this kind of &quot;downward causality&quot;
               &#x28;as Hofstadter calls it&#x29; everywhere, which is why it
               caught my interest. In a way, it&apos;s just an illusion;
-              there&apos;s no actual paradox until we <em>interpret</em> things
-              on a high level and use it to explain things on a lower level. But
-              since we like to do that often, I find it worth paying attention
-              to.
+              there&apos;s no actual tail-eating paradox until we{" "}
+              <em>interpret</em> things on a high level and use it to explain
+              things on a lower level. But since we like to do that often, I
+              find it worth paying attention to.
             </p>
             <br />
             <p className={styles.byline}>
