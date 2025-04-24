@@ -1,5 +1,5 @@
 import { combineClasses } from "../util/convenience";
-import { getIthShortcut, MAX_LENGTH } from "../util/keyboard";
+import { getIthShortcut } from "../util/keyboard";
 import { Rule } from "../util/miu";
 import styles from "./Action.module.css";
 

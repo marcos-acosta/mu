@@ -20,7 +20,7 @@ export const canApplyRule1 = (string: TheoremString): boolean => {
 };
 
 export const getIndicesForRule3 = (string: TheoremString): Rule[] => {
-  let indices = [] as Rule[];
+  const indices = [] as Rule[];
   for (let i = 0; i < string.length - 2; i++) {
     if (
       string[i] === LETTER_I &&
@@ -38,7 +38,7 @@ export const getIndicesForRule3 = (string: TheoremString): Rule[] => {
 };
 
 export const getIndicesForRule4 = (string: TheoremString): Rule[] => {
-  let indices = [] as Rule[];
+  const indices = [] as Rule[];
   for (let i = 0; i < string.length - 1; i++) {
     if (string[i] === LETTER_U && string[i + 1] === LETTER_U) {
       indices.push({
@@ -52,7 +52,7 @@ export const getIndicesForRule4 = (string: TheoremString): Rule[] => {
 };
 
 export const adjustRows = (rules: Rule[]): Rule[] => {
-  let newRules = [...rules];
+  const newRules = [...rules];
   for (let i = 1; i < rules.length; i++) {
     if (rules[i - 1].startIndexInclusive + 1 === rules[i].startIndexInclusive) {
       newRules[i].row = (newRules[i - 1].row + 1) % 3;

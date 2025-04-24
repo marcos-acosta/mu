@@ -479,9 +479,9 @@ export default function App() {
               you agreed that this system is sound &#x28;i.e. can only produce
               true statements when interpreted&#x29;, then you would immediately
               know the answer to the question, &quot;Can you make □?&quot; The
-              answer is no, because it represents "0 isn&apos;t divisible by
-              three", which is false. We could also immediately discount the
-              possibility of ■■■□ , ■■■□□■■■, and countless other chains.
+              answer is no, because it represents &quot;0 isn&apos;t divisible
+              by three&quot;, which is false. We could also immediately discount
+              the possibility of ■■■□ , ■■■□□■■■, and countless other chains.
             </p>
             <p>
               This is actually the case: if you take a look at the four rules,
