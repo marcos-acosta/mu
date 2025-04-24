@@ -45,7 +45,6 @@ export default function App() {
   const [string, setString] = useState([LETTER_I]);
   const [history, setHistory] = useState<TheoremString[]>([]);
   const [showActions, setShowActions] = useState(true);
-  // const [chains, setChains] = useState<Set<string>>(new Set([LETTER_I]));
   const graphElementRef = useRef<HTMLDivElement>(null);
   const cyObject = useRef<{ cy?: cytoscape.Core }>({ cy: undefined });
 
@@ -80,12 +79,6 @@ export default function App() {
     const restOfStates = allStates.slice(1);
     const appliedRule = newStateWithTransition.appliedRule;
     setString(firstState);
-    // setChains((prevChains) => {
-    //   const newChains = new Set<string>(prevChains);
-    //   newChains.add(newState.join(""));
-    //   return newChains;
-    // });
-
     if (cyObject.current.cy) {
       const currentChainString = string.join("");
       const nextChainString = newState.join("");
@@ -366,11 +359,9 @@ export default function App() {
             <p>
               When you scroll down to the next screen, you&apos;ll be able to
               click on available rules &#x28;or use the indicated keyboard
-              shortcuts&#x29; to manipulate the chain. To go back one step, hit{" "}
-              <span className={styles.code}>Delete</span>. To start over, hit{" "}
-              <span className={styles.code}>Space</span>. On the screen below
-              that, you&apos;ll find a graphical representation of all the
-              chains you&apos;ve discovered.
+              shortcuts&#x29; to manipulate the chain. On the screen below that,
+              you&apos;ll find a graphical representation of all the chains
+              you&apos;ve discovered.
             </p>
             <p>
               Once you&apos;ve solved the puzzle &#x28;or given up&#x29;, scroll
@@ -413,6 +404,16 @@ export default function App() {
               )}
             </div>
           ))}
+        </div>
+        <div className={styles.backAndResetContainer}>
+          <button onClick={undo} className={styles.controlButton}>
+            <div className={styles.buttonText}>Undo</div>
+            <div className={styles.symbolContainer}>Backspace</div>
+          </button>
+          <button onClick={reset} className={styles.controlButton}>
+            <div className={styles.buttonText}>Start over</div>
+            <div className={styles.symbolContainer}>Space</div>
+          </button>
         </div>
       </div>
       <div className={styles.graphContainer}>

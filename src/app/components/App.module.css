@@ -10,6 +10,7 @@
 }
 
 .pageContainer {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -198,4 +199,47 @@
 
 .scrollContainer a {
   text-decoration: underline;
+}
+
+.backAndResetContainer {
+  position: absolute;
+  top: 60px;
+  left: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.buttonText {
+  flex-grow: 1;
+}
+
+.controlButton {
+  background-color: var(--background);
+  border: 1px solid var(--foreground);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 4px;
+  padding-left: 8px;
+  padding-right: 4px;
+  transition-property: background-color;
+  transition-duration: 0.25s;
+}
+
+.controlButton:hover {
+  background-color: rgb(244, 244, 244);
+}
+
+.symbolContainer {
+  border: 1px solid var(--foreground);
+  border-radius: 3px;
+  font-family: var(--font-geist-mono), monospace;
+  padding: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
 }
