@@ -221,7 +221,7 @@ export default function App() {
       cyObject.current.cy = cytoscape({
         container: graphElementRef.current,
         zoomingEnabled: true,
-        userZoomingEnabled: false,
+        userZoomingEnabled: true,
         elements: [{ group: "nodes", data: { id: LETTER_I } }],
         style: [
           // the stylesheet for the graph
